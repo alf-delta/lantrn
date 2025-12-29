@@ -1,0 +1,285 @@
+/* ============================
+   Screen 05 — Konstantine / Method
+   ============================ */
+
+.screen-05 {
+    background: #FEFAE0;
+    /* Cream variable */
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0;
+}
+
+.screen-05__env {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.screen-05__grid {
+    position: absolute;
+    inset: -2px;
+    background:
+        linear-gradient(to right, rgba(40, 54, 24, .05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(40, 54, 24, .05) 1px, transparent 1px);
+    background-size: 84px 84px;
+    opacity: .34;
+}
+
+.screen-05__noise {
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
+    opacity: .10;
+    mix-blend-mode: multiply;
+}
+
+.screen-05__diag {
+    position: absolute;
+    left: -20%;
+    right: -20%;
+    bottom: -30%;
+    height: 46%;
+    transform: rotate(-9deg);
+    border-radius: 96px;
+    border: 1px solid rgba(40, 54, 24, .12);
+    background: linear-gradient(160deg, rgba(221, 161, 94, .18), rgba(254, 250, 224, .34));
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+}
+
+.screen-05__inner {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    align-items: start;
+    /* Changed from center to start */
+    gap: min(4vw, 48px);
+    /* Reduced gap */
+    padding: 100px 40px 20px;
+    /* Reduced top/bottom padding */
+}
+
+.screen-05__type {
+    position: absolute;
+    inset: 120px 24px auto 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-start;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.screen-05__ghost {
+    font-family: 'Inter', sans-serif;
+    font-weight: 900;
+    letter-spacing: -2px;
+    line-height: .88;
+    font-size: clamp(44px, 7.2vw, 124px);
+    color: rgba(40, 54, 24, .11);
+    text-transform: uppercase;
+}
+
+.screen-05__text {
+    z-index: 2;
+    max-width: 620px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    /* Add consistent gap */
+}
+
+.screen-05__headline {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    font-weight: 900;
+    letter-spacing: -1.1px;
+    line-height: .98;
+    font-size: clamp(36px, 4.6vw, 64px);
+    color: rgba(40, 54, 24, .94);
+}
+
+.screen-05__lead {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    /* Reduced */
+    line-height: 1.5;
+    /* Tighter */
+    color: rgba(40, 54, 24, .74);
+    max-width: 56ch;
+    font-weight: 500;
+}
+
+.screen-05__body {
+    margin-top: 0;
+    /* Removed - using parent gap */
+}
+
+.screen-05__body p {
+    margin: 0 0 6px;
+    /* Reduced gap */
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    /* Smaller */
+    line-height: 1.5;
+    /* Tighter */
+    color: rgba(40, 54, 24, .72);
+    max-width: 64ch;
+}
+
+.screen-05__quote {
+    margin-top: 0;
+    /* Using parent gap */
+    padding: 10px 12px;
+    /* Reduced padding */
+    border-radius: 18px;
+    /* Slightly smaller */
+    border: 1px solid rgba(40, 54, 24, .12);
+    background: rgba(254, 250, 224, .55);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.screen-05__quote .q {
+    display: block;
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+    color: rgba(40, 54, 24, .90);
+    font-size: 13px;
+    letter-spacing: -.2px;
+}
+
+.screen-05__quote .a {
+    display: block;
+    margin-top: 6px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    color: rgba(40, 54, 24, .62);
+}
+
+.screen-05__facts {
+    margin-top: 0;
+    /* Using parent gap */
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 6px;
+    /* Reduced */
+    padding: 10px 12px;
+    /* Reduced padding */
+    border-radius: 18px;
+    /* Smaller */
+    border: 1px solid rgba(40, 54, 24, .12);
+    background: rgba(254, 250, 224, .52);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.fact {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+}
+
+.fact__k {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    color: #283618;
+}
+
+.fact__v {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: rgba(40, 54, 24, 0.8);
+}
+
+.screen-05__softcta {
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+    margin-top: 0;
+    /* Using parent gap */
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    /* Smaller */
+    font-weight: 800;
+    color: rgba(40, 54, 24, .86);
+    padding: 8px 12px;
+    /* Reduced */
+    border-radius: 999px;
+    border: 1px solid rgba(40, 54, 24, .12);
+    background: rgba(254, 250, 224, .55);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    text-decoration: none;
+    width: fit-content;
+    transition: background 0.2s ease;
+}
+
+.screen-05__softcta:hover {
+    background: rgba(254, 250, 224, .78);
+}
+
+.screen-05__figure {
+    z-index: 3;
+    display: grid;
+    place-items: end center;
+    height: 100%;
+    width: 100%;
+    will-change: transform;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+.screen-05__figure img {
+    width: min(520px, 40vw);
+    height: auto;
+    display: block;
+    filter: saturate(.98) contrast(.98);
+    transform: translateY(6px);
+}
+
+@media (max-width: 920px) {
+    .screen-05__inner {
+        grid-template-columns: 1fr;
+        align-items: start;
+        gap: 16px;
+        padding-top: 88px;
+        padding-bottom: 40px;
+        height: auto;
+        min-height: 100vh;
+    }
+
+    .screen-05__type {
+        inset: 104px 18px auto 18px;
+    }
+
+    .screen-05__ghost {
+        font-size: clamp(42px, 10vw, 96px);
+    }
+
+    .screen-05__figure {
+        height: auto;
+        margin-top: 8px;
+        justify-items: center;
+    }
+
+    .screen-05__figure img {
+        width: min(440px, 86vw);
+    }
+
+    .screen-05__text {
+        max-width: 100%;
+    }
+}

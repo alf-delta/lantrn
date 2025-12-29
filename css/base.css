@@ -1,0 +1,134 @@
+:root {
+  --olive: #606C38;
+  --deep: #283618;
+  --cream: #FEFAE0;
+  --sand: #DDA15E;
+  --clay: #BC6C25;
+
+  --r-xl: 28px;
+  --r-lg: 22px;
+  --r-md: 16px;
+  --r-sm: 12px;
+
+  --container: 1160px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* --- Screen-by-screen snapping (global) --- */
+html {
+  scroll-behavior: smooth;
+  height: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scroll-snap-type: y mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--cream);
+  color: var(--deep);
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+  line-height: 1.35;
+  letter-spacing: .1px;
+  min-height: 100%;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  a, button {
+    -webkit-tap-highlight-color: rgba(40, 54, 24, 0.1);
+    touch-action: manipulation;
+  }
+}
+
+.screen {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+/* Basic container */
+.wrap {
+  width: min(1120px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+@media (max-width: 768px) {
+  .wrap {
+    padding: 0 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .wrap {
+    padding: 0 16px;
+  }
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Global UI */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 11px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(40, 54, 24, .22);
+  background: rgba(254, 250, 224, .70);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.btn:hover {
+  background: rgba(254, 250, 224, .90);
+}
+
+.btn--primary {
+  background: var(--deep);
+  border-color: var(--deep);
+  color: var(--cream);
+}
+
+.btn--primary:hover {
+  background: rgba(40, 54, 24, .92);
+}
+
+/* Mobile adaptations */
+@media (max-width: 768px) {
+  .btn {
+    padding: 10px 16px;
+    font-size: 12px;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .btn {
+    padding: 9px 14px;
+    font-size: 11px;
+    gap: 6px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+    scroll-snap-type: none;
+  }
+}

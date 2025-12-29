@@ -1,0 +1,592 @@
+/* ============================
+   Screens (02+) — Designed slides
+   Contract:
+   - section[data-screen]
+   - children use data-layer: env/type/text/figure
+   - .is-active is applied by JS when the slide is in view
+   ============================ */
+
+.screen {
+    height: 100vh;
+    height: 100dvh;
+    /* Mobile robustness */
+    position: relative;
+    overflow: hidden;
+    /* Prevent spillover */
+}
+
+/* -------- Layered reveal (restrained) -------- */
+[data-layer] {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 360ms cubic-bezier(.2, .8, .2, 1), transform 360ms cubic-bezier(.2, .8, .2, 1);
+}
+
+.is-active [data-layer="env"] {
+    opacity: 1;
+    transform: none;
+    transition-delay: 0ms;
+}
+
+.is-active [data-layer="type"] {
+    opacity: 1;
+    transform: none;
+    transition-delay: 70ms;
+}
+
+.is-active [data-layer="text"] {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 120ms;
+}
+
+/* .is-active [data-layer="figure"] turned off for JS scroll control */
+.is-active [data-layer="figure"] {
+    /* opacity: 1; -> Handled by JS */
+    transform: translateY(0);
+    transition-delay: 180ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    [data-layer] {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+    }
+}
+
+/* ============================
+   Screen 02
+   ============================ */
+
+.screen-02 {
+    background: var(--cream);
+    overflow: hidden;
+}
+
+.screen-02__env {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.screen-02__grid {
+    position: absolute;
+    inset: -2px;
+    /* Grid pattern REMOVED */
+    background: transparent;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.screen-02__noise {
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
+    opacity: .11;
+    mix-blend-mode: multiply;
+}
+
+/* Diagonal base overlay (anchors figure into the UI) */
+.screen-02__diag {
+    position: absolute;
+    left: -20%;
+    right: -20%;
+    bottom: -30%;
+    height: 46%;
+    transform: rotate(-8deg);
+    border-radius: 96px;
+    border: 1px solid rgba(40, 54, 24, .12);
+    background: linear-gradient(160deg, rgba(96, 108, 56, .18), rgba(254, 250, 224, .34));
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+}
+
+/* Layout */
+.screen-02__inner {
+    position: relative;
+    height: 100vh;
+    height: 100dvh;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    align-items: start;
+    /* Top align (Headline matches Ghost text) */
+    gap: min(5vw, 64px);
+    padding-top: 120px;
+    /* Text starts at top visual line */
+    padding-bottom: 0;
+    /* Flush to bottom for image */
+}
+
+@media (max-width: 768px) {
+    .screen-02__inner {
+        padding-top: 100px;
+        gap: min(4vw, 48px);
+    }
+}
+
+/* Big typographic gesture (makes it not look "empty" or "broken") */
+.screen-02__type {
+    position: absolute;
+    inset: 120px 24px auto 24px;
+    display: flex;
+    flex-direction: column;
+    /* Stack vertically (2 lines) */
+    align-items: flex-end;
+    /* Align to right */
+    justify-content: flex-start;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.screen-02__ghost {
+    font-weight: 900;
+    letter-spacing: -2px;
+    line-height: .88;
+    font-size: clamp(64px, 11vw, 180px);
+    /* Increased significantly */
+    color: rgba(40, 54, 24, .12);
+    text-transform: uppercase;
+}
+
+/* Readable text system */
+/* Readable text system */
+.screen-02__text {
+    z-index: 2;
+    max-width: 600px;
+    /* Increased slightly for longer text */
+}
+
+.screen-02__headline {
+    margin: 0;
+    font-weight: 900;
+    letter-spacing: -1.2px;
+    font-size: clamp(23px, 3.2vw, 46px);
+    /* Reduced by ~30% */
+    color: rgba(40, 54, 24, .94);
+}
+
+.screen-02__sub {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.6;
+    color: rgba(40, 54, 24, .78);
+    max-width: 54ch;
+}
+
+.screen-02__sub b {
+    font-weight: 700;
+    color: var(--deep);
+    /* Highlight color */
+}
+
+/* Visual separation for body text */
+.screen-02__body {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    /* Distinct visual separation */
+    margin-top: 20px;
+}
+
+/* Facts must read like UI */
+/* Facts must read like UI */
+.screen-02__facts {
+    margin-top: 32px;
+    /* Increased separation */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px 32px;
+    /* Smoother gap */
+    padding: 24px 32px;
+    /* Larger padding */
+    border-radius: 32px;
+    /* Larger radius */
+    border: 1px solid rgba(40, 54, 24, .14);
+    background: rgba(254, 250, 224, .65);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 4px 20px rgba(40, 54, 24, 0.04);
+    /* Subtle lift */
+}
+
+.fact {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    /* Better spacing between label and value */
+}
+
+.fact__header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 2px;
+}
+
+.fact__icon {
+    width: 20px;
+    height: 20px;
+    /* Default fallback */
+    color: #606c38;
+    flex-shrink: 0;
+}
+
+/* Differentiated calm colors matching site palette */
+.fact:nth-child(1) .fact__icon {
+    color: #bc6c25;
+    /* Earthy terra-cotta */
+}
+
+.fact:nth-child(2) .fact__icon {
+    color: #606c38;
+    /* Muted olive */
+}
+
+.fact:nth-child(3) .fact__icon {
+    color: #283618;
+    /* Deep forest */
+}
+
+.fact:nth-child(4) .fact__icon {
+    color: #dda15e;
+    /* Warm sand/orange */
+}
+
+.fact__k {
+    font-size: 11px;
+    letter-spacing: .08em;
+    font-weight: 800;
+    /* Heavier */
+    text-transform: uppercase;
+    color: rgba(40, 54, 24, .85);
+    /* Darker for readability */
+}
+
+.fact__v {
+    font-size: 15px;
+    /* Larger body text (was 13) */
+    font-weight: 600;
+    /* Semi-bold */
+    line-height: 1.4;
+    color: rgba(40, 54, 24, .96);
+    letter-spacing: -0.2px;
+}
+
+/* Figure anchored to the scene */
+.screen-02__figure {
+    position: absolute;
+    right: 32px;
+    /* Pad slightly from edge or 0 for flush */
+    bottom: 0;
+    z-index: 3;
+    /* display: grid;  <-- No longer needed if abs positioning works for image */
+    display: flex;
+    align-items: flex-end;
+    height: 100%;
+    /* Height is still useful for parallax context? */
+    height: auto;
+    pointer-events: none;
+    will-change: transform;
+}
+
+.screen-02__figure img {
+    width: min(540px, 42vw);
+    height: auto;
+    display: block;
+    filter: saturate(.98) contrast(.98);
+    transform: translateY(6px);
+}
+
+.screen-02__quote {
+    position: absolute;
+    left: 100px;
+    /* Moved further right (deeper overlap) */
+    bottom: 42%;
+    /* Moved lower */
+    transform: translateX(-100%);
+    width: 390px;
+    max-width: 30vw;
+    /* Responsive constraint to prevent overlap */
+    padding: 27px 33px;
+    background: linear-gradient(145deg, rgba(254, 250, 224, 0.85), rgba(254, 250, 224, 0.65));
+    /* Matte gradient */
+    backdrop-filter: blur(40px);
+    /* Heavy blur for frosted look */
+    -webkit-backdrop-filter: blur(40px);
+    border: 1px solid rgba(40, 54, 24, 0.25);
+    /* Restored visible border */
+    border-radius: 30px;
+    border-bottom-right-radius: 6px;
+    /* subtle speech bubble feel */
+    /* box-shadow removed in favor of gradient glow below */
+    z-index: 2;
+}
+
+/* Gradient Glow - Ambient & Grounded */
+.screen-02__quote::before {
+    content: "";
+    position: absolute;
+    inset: 10px;
+    /* Inset to keep glow closer to center/bottom */
+    bottom: -15px;
+    /* Shift glow downwards to ground it */
+    border-radius: inherit;
+    background: linear-gradient(135deg, #78BBC4, #BC7692);
+    /* Calmer sportswear tones */
+    filter: blur(50px);
+    /* Very soft diffusion */
+    opacity: 0.5;
+    /* Subtle presence */
+    z-index: -1;
+    transform: scale(0.9);
+}
+
+.screen-02__quote p {
+    margin: 0;
+    font-size: clamp(14px, 1.5vw, 21px);
+    /* Scale text if bubble shrinks */
+    line-height: 1.4;
+    font-weight: 700;
+    /* Increased from 500 for readability */
+    color: #1a230f;
+    /* Darker, almost black green */
+    font-style: italic;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
+    /* Subtle highlight to lift text */
+}
+
+/* Tablet and below - stack figure above text */
+@media (max-width: 920px) {
+    .screen-02 {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .screen-02__inner {
+        grid-template-columns: 1fr;
+        align-items: start;
+        gap: 16px;
+        padding-top: 20px;
+        /* Reduced since figure is above */
+        padding-bottom: 24px;
+        flex: 1;
+        /* Take remaining space */
+        width: 100%;
+    }
+
+    .screen-02__type {
+        inset: 100px 20px auto 20px;
+        z-index: 0;
+    }
+
+    .screen-02__ghost {
+        font-size: clamp(40px, 10vw, 96px);
+    }
+
+    .screen-02__figure {
+        position: relative;
+        /* Back to flow */
+        right: auto;
+        bottom: auto;
+        order: -1;
+        /* Stack on top */
+        height: 35vh;
+        height: 35dvh;
+        width: 100%;
+        margin-top: 0;
+        margin-right: 0;
+        align-items: flex-end;
+        justify-content: center;
+        /* Center image on mobile */
+    }
+
+    .screen-02__figure img {
+        width: auto;
+        height: 100%;
+        /* Fill the container */
+        max-width: 85vw;
+        object-fit: contain;
+    }
+
+    .screen-02__quote {
+        left: 20px;
+        bottom: 20px;
+        transform: none;
+        width: auto;
+        max-width: 200px;
+        font-size: 12px;
+        padding: 12px 16px;
+    }
+
+    .screen-02__quote p {
+        font-size: 12px;
+    }
+
+    .screen-02__headline {
+        font-size: clamp(22px, 5vw, 28px);
+        line-height: 1.15;
+    }
+
+    .screen-02__sub {
+        font-size: 14px;
+        line-height: 1.5;
+        max-width: 100%;
+    }
+
+    .screen-02__body {
+        gap: 16px;
+        margin-top: 16px;
+    }
+
+    .screen-02__facts {
+        margin-top: 16px;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px 16px;
+        padding: 14px 16px;
+    }
+
+    .fact__k {
+        font-size: 10px;
+    }
+
+    .fact__v {
+        font-size: 12px;
+        line-height: 1.4;
+    }
+}
+
+/* Mobile portrait */
+@media (max-width: 480px) {
+    .screen-02__inner {
+        gap: 12px;
+        padding-top: 80px;
+        padding-bottom: 20px;
+    }
+
+    .screen-02__type {
+        inset: 80px 16px auto 16px;
+    }
+
+    .screen-02__ghost {
+        font-size: clamp(32px, 12vw, 64px);
+    }
+
+    .screen-02__figure {
+        height: 30vh;
+        height: 30dvh;
+        margin-right: -32px;
+        /* Pull closer to edge on mobile */
+    }
+
+    .screen-02__figure img {
+        max-width: 90vw;
+    }
+
+    .screen-02__headline {
+        font-size: clamp(20px, 6vw, 24px);
+        line-height: 1.2;
+        letter-spacing: -0.8px;
+    }
+
+    .screen-02__sub {
+        font-size: 13px;
+        line-height: 1.5;
+    }
+
+    .screen-02__body {
+        gap: 14px;
+        margin-top: 14px;
+    }
+
+    .screen-02__facts {
+        margin-top: 14px;
+        grid-template-columns: 1fr;
+        gap: 10px;
+        padding: 12px;
+        border-radius: 16px;
+    }
+
+    .fact {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 8px;
+    }
+
+    .fact__k {
+        width: 42%;
+        font-size: 9px;
+        flex-shrink: 0;
+    }
+
+    .fact__v {
+        width: 58%;
+        text-align: right;
+        font-size: 11px;
+        line-height: 1.4;
+    }
+
+    .screen-02__diag {
+        left: -15%;
+        right: -15%;
+        bottom: -25%;
+        height: 40%;
+        border-radius: 72px;
+    }
+}
+
+/* Small mobile */
+@media (max-width: 360px) {
+    .screen-02__inner {
+        padding-top: 72px;
+        padding-bottom: 16px;
+        gap: 10px;
+    }
+
+    .screen-02__type {
+        inset: 72px 12px auto 12px;
+    }
+
+    .screen-02__ghost {
+        font-size: clamp(28px, 14vw, 48px);
+    }
+
+    .screen-02__figure {
+        height: 28vh;
+        height: 28dvh;
+        margin-right: -24px;
+        /* Pull closer to edge on small mobile */
+    }
+
+    .screen-02__headline {
+        font-size: clamp(18px, 7vw, 22px);
+        line-height: 1.25;
+    }
+
+    .screen-02__sub {
+        font-size: 12px;
+        line-height: 1.5;
+    }
+
+    .screen-02__body {
+        gap: 12px;
+        margin-top: 12px;
+    }
+
+    .screen-02__facts {
+        padding: 10px;
+        gap: 8px;
+        border-radius: 14px;
+    }
+
+    .fact__k {
+        font-size: 8px;
+        width: 40%;
+    }
+
+    .fact__v {
+        font-size: 10px;
+        width: 60%;
+    }
+}
