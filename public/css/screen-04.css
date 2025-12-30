@@ -211,8 +211,8 @@
 
 .screen-04__fig-wrap {
     position: absolute;
-    bottom: -5vh;
-    /* Slight bleed */
+    bottom: 0;
+    transform: translateY(14px);
     display: flex;
     align-items: flex-end;
     /* transition? Just static placement mostly */
@@ -309,5 +309,52 @@
     .screen-04__fig-wrap img {
         max-height: 300px;
         max-width: 45vw;
+    }
+}
+
+@media (max-width: 768px) {
+    .screen-04 {
+        justify-content: flex-start;
+    }
+
+    .screen-04__inner {
+        padding: 96px 20px 24px;
+        height: auto;
+    }
+
+    .screen-04__content {
+        align-items: flex-start;
+        gap: 32px;
+    }
+
+    .screen-04__header {
+        align-items: flex-start;
+        text-align: left;
+    }
+
+    .screen-04__cards {
+        grid-template-columns: auto;
+        grid-auto-flow: column;
+        grid-auto-columns: minmax(220px, 76vw);
+        gap: 16px;
+        overflow-x: auto;
+        padding-bottom: 6px;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .pricing-card {
+        scroll-snap-align: start;
+    }
+
+    .screen-04__figures {
+        height: 35vh;
+        bottom: 0;
+        top: auto;
+    }
+
+    .screen-04__fig-wrap img {
+        max-height: 38vh;
+        max-width: 55vw;
     }
 }

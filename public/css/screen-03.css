@@ -287,6 +287,25 @@
 }
 
 @media (max-width: 768px) {
+    .screen-03__inner {
+        padding-top: 96px;
+        padding-bottom: 32px;
+        gap: 32px;
+    }
+
+    .screen-03__content {
+        align-items: flex-start;
+        text-align: left;
+    }
+
+    .screen-03__intro {
+        text-align: left;
+    }
+
+    .screen-03__process {
+        max-width: 100%;
+    }
+
     .screen-03__headline {
         font-size: 36px;
     }

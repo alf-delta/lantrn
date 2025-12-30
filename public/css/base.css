@@ -17,13 +17,13 @@
   box-sizing: border-box;
 }
 
-/* --- Screen-by-screen snapping (global) --- */
+/* --- Screen-by-screen scrolling (JS-controlled) --- */
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
   height: 100%;
   overflow-y: scroll;
   overflow-x: hidden;
-  scroll-snap-type: y mandatory;
+  overscroll-behavior: none;
   -webkit-overflow-scrolling: touch;
 }
 
@@ -32,6 +32,7 @@ body {
   padding: 0;
   background: var(--cream);
   color: var(--deep);
+  overscroll-behavior: none;
   font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
   line-height: 1.35;
   letter-spacing: .1px;
@@ -50,10 +51,7 @@ body {
   }
 }
 
-.screen {
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
-}
+/* JS handles snapping between screens */
 
 /* Basic container */
 .wrap {
@@ -129,6 +127,5 @@ a {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
-    scroll-snap-type: none;
   }
 }
