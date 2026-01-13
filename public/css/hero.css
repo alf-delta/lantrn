@@ -10,6 +10,8 @@
   /* Match parent section height for snap */
   width: 100%;
   position: relative;
+  --hero-side: clamp(24px, 5vw, 80px);
+  --hero-top-pad: 14px;
 }
 
 /* If old blocks still exist in HTML — kill them */
@@ -33,13 +35,14 @@
   /* -webkit-backdrop-filter: blur(14px); */
   pointer-events: none;
   /* Let clicks pass through empty space */
+  padding: 0 var(--hero-side);
 }
 
 /* HERO COPY */
 .hero-copy {
-  position: absolute;
-  left: clamp(24px, 6vw, 96px);
-  top: clamp(140px, 18vh, 220px);
+  position: relative;
+  left: auto;
+  top: auto;
   max-width: 520px;
   z-index: 4;
   display: flex;
@@ -52,15 +55,15 @@
   font-weight: 900;
   letter-spacing: -0.8px;
   line-height: 1.05;
-  font-size: clamp(30px, 3.8vw, 56px);
-  color: rgba(40, 54, 24, .96);
+  font-size: clamp(42px, 7.2vw, 96px);
+  color: #fff;
 }
 
 .hero-copy .sub {
   margin: 0;
   font-size: 16px;
   line-height: 1.5;
-  color: rgba(40, 54, 24, .78);
+  color: rgba(255, 255, 255, 0.82);
 }
 
 .hero-chips {
@@ -79,43 +82,25 @@
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  padding: 14px 0;
+  padding: var(--hero-top-pad) 0;
 }
 
-.brand {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  /* min-width: 240px; <--- constraint might look weird if pill is tight. */
-
-  /* Glass Island Style REMOVED for brand */
-  padding: 0;
-  border-radius: 0;
-  border: none;
-  background: transparent;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
+.hero-top .wrap {
+  width: 100%;
+  padding-left: 0;
+  padding-right: 0;
 }
 
-.mark {
-  width: 40px;
-  height: 40px;
-  border-radius: 14px;
-  background: var(--deep);
-  box-shadow: 0 10px 24px rgba(40, 54, 24, .10);
-}
-
-.brand-txt strong {
+.hero-logo {
+  width: clamp(235.62px, 35.343vw, 353.43px);
+  height: auto;
   display: block;
-  font-weight: 800;
-  letter-spacing: .2px
-}
-
-.brand-txt span {
-  display: block;
-  font-size: 12px;
-  color: rgba(40, 54, 24, .72);
-  margin-top: 2px
+  position: absolute;
+  top: var(--hero-top-pad);
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  z-index: 6;
 }
 
 .hero-nav {
@@ -124,8 +109,8 @@
   align-items: center;
   padding: 8px 12px;
   border-radius: 999px;
-  border: 1px solid rgba(40, 54, 24, .10);
-  background: rgba(254, 250, 224, .55);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.18);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
@@ -134,7 +119,7 @@
   font-size: 13px;
   padding: 8px 10px;
   border-radius: 999px;
-  color: rgba(40, 54, 24, .88);
+  color: rgba(255, 255, 255, 0.92);
   min-height: 32px;
   display: inline-flex;
   align-items: center;
@@ -142,7 +127,7 @@
 }
 
 .hero-nav a:active {
-  background-color: rgba(40, 54, 24, .08);
+  background-color: rgba(255, 255, 255, 0.14);
 }
 
 .hero-actions {
@@ -151,8 +136,8 @@
   align-items: center;
   padding: 8px 12px;
   border-radius: 999px;
-  border: 1px solid rgba(40, 54, 24, .10);
-  background: rgba(254, 250, 224, .55);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.18);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
@@ -162,7 +147,7 @@
   padding: 8px 14px;
   /* Increased padding slightly for highlight target */
   border-radius: 999px;
-  color: rgba(40, 54, 24, .88);
+  color: rgba(255, 255, 255, 0.92);
   transition: all 0.2s ease;
   min-height: 32px;
   display: inline-flex;
@@ -175,12 +160,12 @@
 
 .hero-actions .action-highlight {
   font-weight: 700;
-  background: rgba(40, 54, 24, .08);
-  color: var(--deep);
+  background: rgba(255, 255, 255, 0.22);
+  color: #fff;
 }
 
 .hero-actions .action-highlight:hover {
-  background: rgba(40, 54, 24, .12);
+  background: rgba(255, 255, 255, 0.3);
 }
 
 /* POSTER */
@@ -188,19 +173,19 @@
   position: relative;
   /* Removed top margin/borders for full screen look */
   margin-top: 0;
+  margin-left: calc(50% - 50vw);
+  width: 100vw;
+  height: 100vh;
   border-radius: 0;
   overflow: hidden;
   border: none;
   /* Break out of .wrap constraints if needed, or rely on HTML structure change? 
      For now, make it strictly full width/height of its container. 
      If inside .wrap, we might need negative margins */
-  margin-left: calc(50% - 50vw);
-  width: 100vw;
   /* max-width: 100%; REMOVED to allow full-width breakout */
   background:
-    radial-gradient(900px 520px at 30% 20%, rgba(221, 161, 94, .42), transparent 60%),
-    radial-gradient(900px 560px at 78% 78%, rgba(96, 108, 56, .38), transparent 60%),
-    linear-gradient(180deg, rgba(254, 250, 224, .95), rgba(254, 250, 224, .60));
+    linear-gradient(180deg, rgba(26, 32, 36, 0.35), rgba(26, 32, 36, 0.75)),
+    url("/assets/red%20rock%20formations.webp") center/cover no-repeat;
   /* Full screen height */
   height: 100vh;
   height: 100dvh;
@@ -251,6 +236,7 @@
                  Original was z-index:1. Let's stick to safe defaults but ensure visibility. */
   /* z-index: 1; <-- REMOVED */
   pointer-events: none;
+  opacity: 0.2;
 }
 
 /* LEFT BLOCK -> REPLACED by "Build a foundation..." -> IN FRONT */
@@ -285,15 +271,16 @@
 .hero-figure {
   position: absolute;
   /* Use margin auto centering to avoid conflict with motion.js (parallax) which overwrites transform */
-  left: 0;
-  right: 0;
-  margin-inline: auto;
+  left: auto;
+  right: clamp(18px, 6vw, 96px);
+  margin-inline: 0;
   bottom: -12px;
   /* transform: translateX(-50%); REMOVED because JS overwrites it */
-  width: min(980px, 82vw);
+  width: min(760px, 64vw);
   z-index: 3;
   display: grid;
   place-items: end center;
+  opacity: 0.2;
 }
 
 .hero-figure img {
@@ -318,6 +305,130 @@
   -webkit-backdrop-filter: blur(16px);
 }
 
+.hero-main {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: grid;
+  grid-template-columns: minmax(260px, 0.95fr) minmax(320px, 1.05fr);
+  align-items: end;
+  gap: clamp(18px, 3.5vw, 46px);
+  padding: clamp(110px, 18vh, 190px) var(--hero-side) clamp(32px, 8vh, 76px);
+}
+
+.hero-main .hero-cta-row {
+  position: static;
+  left: auto;
+  right: auto;
+  bottom: auto;
+  transform: none;
+  margin-top: 14px;
+  justify-content: flex-start;
+  width: 100%;
+  max-width: 420px;
+}
+
+.hero-services {
+  position: relative;
+  width: min(58vw, 760px);
+  justify-self: end;
+  margin-right: calc(var(--hero-side) * -1);
+}
+
+.hero-services__track {
+  display: flex;
+  gap: 16px;
+  align-items: stretch;
+  will-change: transform;
+}
+
+.hero-service-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px;
+  border-radius: 20px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  min-width: clamp(180px, 18vw, 240px);
+  flex: 0 0 auto;
+}
+
+.hero-service-card__title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 800;
+  color: #e76f51;
+  align-self: flex-start;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(15, 23, 28, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.hero-service-card__desc {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.4;
+  color: #fff;
+  flex: 1;
+}
+
+.hero-service-card__actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.hero-service-card__cta,
+.hero-service-card__info {
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid #2b9d8f;
+  background: rgba(255, 255, 255, 0.18);
+  color: #2b9d8f;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.hero-service-card__cta:hover,
+.hero-service-card__info:hover {
+  background: rgba(255, 255, 255, 0.28);
+  color: #2b9d8f;
+  border-color: #2b9d8f;
+}
+
+.hero-services__controls {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-start;
+  margin-top: 14px;
+}
+
+.hero-services__btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.hero-services__btn:hover {
+  background: rgba(255, 255, 255, 0.28);
+  transform: translateY(-1px);
+}
+
 /* CTA */
 .hero-cta,
 .hero-cta-row {
@@ -338,9 +449,11 @@
   gap: 10px;
   padding: 14px 18px;
   border-radius: 999px;
-  background: var(--sand);
-  border: 1px solid rgba(40, 54, 24, .16);
-  color: rgba(40, 54, 24, .92);
+  background: rgba(15, 23, 28, 0.65);
+  border: 1px solid #e76f51;
+  color: #e76f51;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   font-weight: 900;
   letter-spacing: .2px;
   min-height: 44px;
@@ -349,7 +462,7 @@
 
 .cta-pill:active {
   transform: scale(0.97);
-  background: rgba(221, 161, 94, 0.9);
+  background: rgba(15, 23, 28, 0.75);
 }
 
 .cta-secondary {
@@ -358,9 +471,9 @@
   gap: 10px;
   padding: 14px 18px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.45);
-  border: 1px solid rgba(40, 54, 24, .08);
-  color: rgba(40, 54, 24, .82);
+  background: rgba(255, 255, 255, 0.18);
+  border: 1px solid #2b9d8f;
+  color: #2b9d8f;
   font-weight: 900;
   letter-spacing: .2px;
   backdrop-filter: blur(12px);
@@ -404,7 +517,7 @@
 .kicker {
   display: inline-block;
   font-size: 12px;
-  color: rgba(40, 54, 24, .70);
+  color: var(--accent);
   letter-spacing: .08em;
   text-transform: uppercase;
 }
@@ -479,6 +592,10 @@
 /* responsive */
 /* Tablet and below */
 @media (max-width: 980px) {
+  .hero-stage {
+    --hero-side: clamp(20px, 5vw, 48px);
+    --hero-top-pad: 12px;
+  }
   .hero-nav {
     display: none;
   }
@@ -488,12 +605,23 @@
   }
 
   .hero-poster {
+    width: 100vw;
     height: 100vh;
-    height: 100dvh;
   }
 
   .hero-figure {
-    width: min(760px, 96vw);
+    width: min(680px, 92vw);
+    right: clamp(12px, 6vw, 64px);
+  }
+
+  .hero-main {
+    grid-template-columns: 1fr;
+    align-items: start;
+    padding: clamp(110px, 18vh, 170px) var(--hero-side) clamp(26px, 7vh, 60px);
+  }
+
+  .hero-services {
+    width: min(70vw, 860px);
   }
 
   .hero-below {
@@ -502,7 +630,7 @@
 
   .hero-top-inner {
     gap: 12px;
-    padding: 12px 0;
+    padding: var(--hero-top-pad) 0;
   }
 
   .hero-actions {
@@ -515,27 +643,19 @@
     padding: 6px 12px;
   }
 
-  .brand-txt strong {
-    font-size: 14px;
-  }
-
-  .brand-txt span {
-    font-size: 11px;
-  }
-
-  .mark {
-    width: 36px;
-    height: 36px;
-  }
 }
 
 /* Mobile landscape and small tablets */
 @media (max-width: 768px) {
+  .hero-stage {
+    --hero-side: 18px;
+    --hero-top-pad: 10px;
+  }
   .hero-top-inner {
     flex-wrap: wrap;
     gap: 10px;
-    padding: 10px 0;
-    justify-content: center;
+    padding: var(--hero-top-pad) 0;
+    justify-content: flex-start;
   }
 
   .hero-actions {
@@ -549,30 +669,11 @@
     width: 100%;
   }
 
-  .brand {
-    flex: 1 1 auto;
-    min-width: 0;
-    justify-content: center;
-    margin: 0 auto;
-  }
-
-  .brand-txt strong {
-    font-size: 13px;
-  }
-
-  .brand-txt span {
-    font-size: 10px;
-  }
-
-  .mark {
-    width: 32px;
-    height: 32px;
-    flex-shrink: 0;
-  }
 
   .hero-figure {
-    width: min(680px, 94vw);
+    width: min(580px, 90vw);
     bottom: -8px;
+    right: clamp(8px, 4vw, 32px);
   }
 
   .type-right {
@@ -604,11 +705,8 @@
     flex-direction: row;
     flex-wrap: nowrap;
     gap: 10px;
-    bottom: 24px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: calc(100% - 32px);
-    max-width: 400px;
+    width: 100%;
+    max-width: 360px;
   }
 
   .cta-pill,
@@ -630,14 +728,11 @@
   }
 
   .hero-copy {
-    left: 16px;
-    right: 16px;
-    top: 110px;
-    max-width: none;
+    max-width: 100%;
   }
 
   .hero-copy h1 {
-    font-size: clamp(26px, 6.2vw, 34px);
+    font-size: clamp(30px, 9vw, 54px);
   }
 
   .hero-copy .sub {
@@ -645,18 +740,39 @@
     line-height: 1.5;
   }
 
+  .hero-main {
+    padding: clamp(96px, 16vh, 140px) var(--hero-side) 24px;
+    gap: 18px;
+  }
+
+  .hero-services {
+    width: 100%;
+    margin-right: 0;
+  }
+
+  .hero-services__track {
+    gap: 12px;
+  }
+
+  .hero-service-card {
+    min-width: clamp(170px, 40vw, 220px);
+  }
+
   .hero-poster {
     background:
-      radial-gradient(600px 400px at 30% 20%, rgba(221, 161, 94, .42), transparent 60%),
-      radial-gradient(600px 420px at 78% 78%, rgba(96, 108, 56, .38), transparent 60%),
-      linear-gradient(180deg, rgba(254, 250, 224, .95), rgba(254, 250, 224, .60));
+      linear-gradient(180deg, rgba(26, 32, 36, 0.35), rgba(26, 32, 36, 0.75)),
+      url("/assets/red%20rock%20formations.webp") center/cover no-repeat;
   }
 }
 
 /* Mobile portrait */
 @media (max-width: 480px) {
+  .hero-stage {
+    --hero-side: 16px;
+    --hero-top-pad: 8px;
+  }
   .hero-top-inner {
-    padding: 8px 0;
+    padding: var(--hero-top-pad) 0;
     gap: 8px;
   }
 
@@ -673,28 +789,9 @@
     font-weight: 600;
   }
 
-  .brand {
-    gap: 8px;
-  }
-
-  .brand-txt strong {
-    font-size: 12px;
-    line-height: 1.2;
-  }
-
-  .brand-txt span {
-    font-size: 9px;
-    margin-top: 1px;
-  }
-
-  .mark {
-    width: 28px;
-    height: 28px;
-    border-radius: 10px;
-  }
 
   .hero-figure {
-    width: min(580px, 92vw);
+    width: min(520px, 88vw);
     bottom: -4px;
   }
 
@@ -725,18 +822,16 @@
   }
 
   .hero-cta-row {
-    bottom: 20px;
     gap: 8px;
-    width: calc(100% - 24px);
     max-width: 360px;
   }
 
   .hero-copy {
-    top: 96px;
+    max-width: 100%;
   }
 
   .hero-copy h1 {
-    font-size: clamp(24px, 7vw, 30px);
+    font-size: clamp(28px, 9vw, 42px);
   }
 
   .hero-copy .sub {
@@ -751,11 +846,18 @@
     min-height: 44px;
   }
 
+  .hero-main {
+    padding: clamp(86px, 14vh, 120px) var(--hero-side) 22px;
+  }
+
+  .hero-service-card {
+    padding: 14px;
+  }
+
   .hero-poster {
     background:
-      radial-gradient(400px 300px at 30% 20%, rgba(221, 161, 94, .38), transparent 60%),
-      radial-gradient(400px 320px at 78% 78%, rgba(96, 108, 56, .34), transparent 60%),
-      linear-gradient(180deg, rgba(254, 250, 224, .95), rgba(254, 250, 224, .65));
+      linear-gradient(180deg, rgba(26, 32, 36, 0.35), rgba(26, 32, 36, 0.75)),
+      url("/assets/red%20rock%20formations.webp") center/cover no-repeat;
   }
 
   .hero-below {
@@ -801,8 +903,12 @@
 
 /* Small mobile */
 @media (max-width: 360px) {
+  .hero-stage {
+    --hero-side: 14px;
+    --hero-top-pad: 6px;
+  }
   .hero-top-inner {
-    padding: 6px 0;
+    padding: var(--hero-top-pad) 0;
   }
 
   .hero-actions {
@@ -814,26 +920,12 @@
     padding: 4px 8px;
   }
 
-  .brand-txt strong {
-    font-size: 11px;
-  }
-
-  .brand-txt span {
-    font-size: 8px;
-  }
-
-  .mark {
-    width: 24px;
-    height: 24px;
-  }
 
   .hero-figure {
     width: min(520px, 90vw);
   }
 
   .hero-cta-row {
-    bottom: 16px;
-    width: calc(100% - 20px);
     max-width: 320px;
   }
 

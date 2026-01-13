@@ -75,7 +75,7 @@
     letter-spacing: -1.2px;
     line-height: 1.1;
     font-size: clamp(32px, 3.5vw, 56px);
-    color: #283618;
+    color: var(--deep);
 }
 
 .screen-04__subhead {
@@ -125,14 +125,14 @@
     font-family: 'Inter', sans-serif;
     font-size: 20px;
     font-weight: 800;
-    color: #283618;
+    color: var(--deep);
 }
 
 .pricing-card__price {
     font-family: 'Inter', sans-serif;
     font-size: 15px;
     font-weight: 600;
-    color: #BC6C25;
+    color: var(--accent);
     margin-bottom: 20px;
 }
 
@@ -168,7 +168,7 @@
     position: absolute;
     left: 0;
     top: 0;
-    color: #606C38;
+    color: var(--olive);
     font-weight: 900;
 }
 
@@ -178,7 +178,7 @@
     background: rgba(40, 54, 24, 0.04);
     border: 1px solid rgba(40, 54, 24, 0.08);
     border-radius: 16px;
-    color: #283618;
+    color: var(--deep);
     font-family: 'Inter', sans-serif;
     font-size: 15px;
     font-weight: 700;
@@ -189,9 +189,9 @@
 }
 
 .pricing-card__cta:hover {
-    background: #283618;
-    color: #FEFAE0;
-    border-color: #283618;
+    background: var(--accent);
+    color: var(--cream);
+    border-color: var(--accent);
 }
 
 /* 4. Figures */

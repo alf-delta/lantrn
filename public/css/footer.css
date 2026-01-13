@@ -53,7 +53,7 @@
     font-weight: 700;
     letter-spacing: 2px;
     text-transform: uppercase;
-    color: rgba(40, 54, 24, 0.6);
+    color: var(--accent);
 }
 
 .contact-screen__headline {
@@ -61,7 +61,7 @@
     font-size: clamp(28px, 3vw, 44px);
     line-height: 1.15;
     font-weight: 800;
-    color: #283618;
+    color: var(--deep);
 }
 
 .contact-screen__subhead {
@@ -146,7 +146,7 @@
     font-weight: 900;
     font-size: 20px;
     letter-spacing: -0.5px;
-    color: #283618;
+    color: var(--deep);
 }
 
 .footer__tagline {
@@ -172,13 +172,13 @@
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.5);
     border: 1px solid rgba(40, 54, 24, 0.1);
-    color: #283618;
+    color: var(--deep);
     transition: all 0.2s ease;
     text-decoration: none;
 }
 
 .footer__social-link:hover {
-    background: #283618;
+    background: var(--deep);
     color: #FEFAE0;
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(40, 54, 24, 0.15);
@@ -197,7 +197,7 @@
     font-size: 13px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    color: #283618;
+    color: var(--deep);
     margin: 0 0 4px 0;
 }
 
@@ -220,7 +220,7 @@
 }
 
 .footer__nav-link:hover {
-    color: #283618;
+    color: var(--deep);
     transform: translateX(2px);
 }
 
@@ -255,7 +255,7 @@
 }
 
 .footer__legal-link:hover {
-    color: #283618;
+    color: var(--deep);
 }
 
 /* Contact Info */
@@ -274,7 +274,7 @@
 }
 
 .footer__contact-item:hover {
-    color: #283618;
+    color: var(--deep);
 }
 
 .footer__contact-label {

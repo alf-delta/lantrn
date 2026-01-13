@@ -1,9 +1,11 @@
 :root {
-  --olive: #606C38;
-  --deep: #283618;
+  --olive: #2FB3A6;
+  --deep: #2C5D66;
   --cream: #FEFAE0;
-  --sand: #DDA15E;
-  --clay: #BC6C25;
+  --sand: #F4D166;
+  --clay: #F29C5E;
+  --coral: #E56B54;
+  --accent: #E76F51;
 
   --r-xl: 28px;
   --r-lg: 22px;
@@ -98,13 +100,13 @@ a {
 }
 
 .btn--primary {
-  background: var(--deep);
-  border-color: var(--deep);
+  background: var(--accent);
+  border-color: var(--accent);
   color: var(--cream);
 }
 
 .btn--primary:hover {
-  background: rgba(40, 54, 24, .92);
+  background: var(--accent);
 }
 
 /* Mobile adaptations */

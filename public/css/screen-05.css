@@ -196,7 +196,7 @@
     font-family: 'Inter', sans-serif;
     font-weight: 700;
     font-size: 13px;
-    color: #283618;
+    color: var(--accent);
 }
 
 .fact__v {
@@ -215,21 +215,23 @@
     font-size: 12px;
     /* Smaller */
     font-weight: 800;
-    color: rgba(40, 54, 24, .86);
+    color: var(--accent);
     padding: 8px 12px;
     /* Reduced */
     border-radius: 999px;
-    border: 1px solid rgba(40, 54, 24, .12);
+    border: 1px solid var(--accent);
     background: rgba(254, 250, 224, .55);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     text-decoration: none;
     width: fit-content;
-    transition: background 0.2s ease;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
 
 .screen-05__softcta:hover {
-    background: rgba(254, 250, 224, .78);
+    background: var(--accent);
+    color: var(--cream);
+    border-color: var(--accent);
 }
 
 .screen-05__figure {

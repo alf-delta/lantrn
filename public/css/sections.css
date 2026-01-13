@@ -268,7 +268,7 @@
 }
 
 .fact:nth-child(3) .fact__icon {
-    color: #283618;
+    color: var(--deep);
     /* Deep forest */
 }
 
@@ -283,7 +283,7 @@
     font-weight: 800;
     /* Heavier */
     text-transform: uppercase;
-    color: rgba(40, 54, 24, .85);
+    color: var(--accent);
     /* Darker for readability */
 }
 

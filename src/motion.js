@@ -330,6 +330,20 @@ if (enableGsapAnimations) {
         entry.tl.restart(true);
       } else {
         entry.tl.pause(0);
+        if (e.target.id === 'screen-04') {
+          const cards = e.target.querySelectorAll('.pricing-card');
+          if (cards.length) {
+            gsap.to(cards, {
+              autoAlpha: 0,
+              y: 26,
+              scale: 0.98,
+              duration: 0.35,
+              stagger: 0.06,
+              onComplete: () => entry.reset()
+            });
+            return;
+          }
+        }
         entry.reset();
       }
     });
@@ -420,4 +434,79 @@ if (enableGsapAnimations) {
 
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
+})();
+
+// 4) Hero services carousel
+(function initHeroServicesCarousel() {
+  const track = document.querySelector('.hero-services__track');
+  if (!track) return;
+  const prevBtn = document.querySelector('.hero-services__btn[data-dir="prev"]');
+  const nextBtn = document.querySelector('.hero-services__btn[data-dir="next"]');
+  const cards = () => Array.from(track.children);
+
+  let isAnimating = false;
+
+  const getOffset = () => {
+    const first = track.children[0];
+    if (!first) return 0;
+    const gap = parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap || 0);
+    return first.getBoundingClientRect().width + gap;
+  };
+
+  const shiftNext = () => {
+    if (isAnimating) return;
+    const first = track.children[0];
+    if (!first) return;
+    isAnimating = true;
+    const offset = getOffset();
+
+    gsap.to(first, {
+      autoAlpha: 0,
+      y: 28,
+      scale: 0.9,
+      rotationX: 12,
+      transformPerspective: 800,
+      duration: 0.35
+    });
+
+    gsap.to(track, {
+      x: -offset,
+      duration: 0.45,
+      ease: 'power2.inOut',
+      onComplete: () => {
+        track.appendChild(first);
+        gsap.set(track, { x: 0 });
+        gsap.set(first, { autoAlpha: 1, y: 0, scale: 1, rotationX: 0 });
+        isAnimating = false;
+      }
+    });
+  };
+
+  const shiftPrev = () => {
+    if (isAnimating) return;
+    const items = cards();
+    const last = items[items.length - 1];
+    if (!last) return;
+    isAnimating = true;
+    const offset = getOffset();
+
+    track.insertBefore(last, track.firstChild);
+    gsap.set(track, { x: -offset });
+    gsap.fromTo(last, { autoAlpha: 0, scale: 0.92 }, { autoAlpha: 1, scale: 1, duration: 0.35 });
+    gsap.to(track, {
+      x: 0,
+      duration: 0.45,
+      ease: 'power2.inOut',
+      onComplete: () => {
+        isAnimating = false;
+      }
+    });
+  };
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', shiftNext);
+  }
+  if (prevBtn) {
+    prevBtn.addEventListener('click', shiftPrev);
+  }
 })();
