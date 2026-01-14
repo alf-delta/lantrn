@@ -552,8 +552,13 @@ if (enableGsapAnimations) {
       serviceTitle.textContent = fallbackTitle ? fallbackTitle.textContent : '';
     }
     if (serviceDesc) {
-      const fallbackDesc = card.querySelector('.hero-service-card__desc');
-      serviceDesc.textContent = fallbackDesc ? fallbackDesc.textContent : '';
+      const desc = card.dataset.desc || '';
+      if (desc) {
+        serviceDesc.textContent = desc;
+      } else {
+        const fallbackDesc = card.querySelector('.hero-service-card__desc');
+        serviceDesc.textContent = fallbackDesc ? fallbackDesc.textContent : '';
+      }
     }
 
     if (screenHeadline && card.dataset.headline) {
