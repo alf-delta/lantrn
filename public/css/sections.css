@@ -84,8 +84,12 @@
    ============================ */
 
 .screen-02 {
-    background: var(--cream);
+    background:
+        radial-gradient(800px 520px at 20% 10%, rgba(43, 157, 143, 0.28), transparent 60%),
+        radial-gradient(900px 680px at 85% 85%, rgba(231, 111, 81, 0.22), transparent 60%),
+        linear-gradient(160deg, #121c20, #0b1216 55%, #0a0f12);
     overflow: hidden;
+    --hero-side: clamp(24px, 5vw, 80px);
 }
 
 .screen-02__env {
@@ -101,6 +105,12 @@
     background: transparent;
     opacity: 0;
     pointer-events: none;
+}
+
+.screen-02 .wrap {
+    width: 100%;
+    padding-left: var(--hero-side);
+    padding-right: var(--hero-side);
 }
 
 .screen-02__noise {
@@ -143,6 +153,10 @@
 }
 
 @media (max-width: 768px) {
+    .screen-02 {
+        --hero-side: 18px;
+    }
+
     .screen-02__inner {
         padding-top: 100px;
         gap: min(4vw, 48px);
@@ -179,28 +193,62 @@
     z-index: 2;
     max-width: 600px;
     /* Increased slightly for longer text */
+    margin-left: 0;
 }
 
 .screen-02__headline {
     margin: 0;
     font-weight: 900;
     letter-spacing: -1.2px;
-    font-size: clamp(23px, 3.2vw, 46px);
+    font-size: clamp(20px, 2.9vw, 40px);
     /* Reduced by ~30% */
-    color: rgba(40, 54, 24, .94);
+    color: #fff;
+    max-width: 28ch;
 }
 
 .screen-02__sub {
     margin: 0;
     font-size: 15px;
     line-height: 1.6;
-    color: rgba(40, 54, 24, .78);
+    color: rgba(255, 255, 255, 0.78);
     max-width: 54ch;
+}
+
+.screen-02__service {
+    margin-top: 16px;
+    padding: 12px 14px;
+    border-radius: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: rgba(10, 16, 20, 0.45);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.screen-02__service-label {
+    margin: 0 0 8px;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.screen-02__service-title {
+    margin: 0 0 6px;
+    font-size: 18px;
+    font-weight: 800;
+    color: #fff;
+}
+
+.screen-02__service-desc {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.8);
 }
 
 .screen-02__sub b {
     font-weight: 700;
-    color: var(--deep);
+    color: #fff;
     /* Highlight color */
 }
 
@@ -208,29 +256,29 @@
 .screen-02__body {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 14px;
     /* Distinct visual separation */
-    margin-top: 20px;
+    margin-top: 14px;
 }
 
 /* Facts must read like UI */
 /* Facts must read like UI */
 .screen-02__facts {
-    margin-top: 32px;
+    margin-top: 18px;
     /* Increased separation */
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 20px 32px;
+    gap: 14px 20px;
     /* Smoother gap */
-    padding: 24px 32px;
+    padding: 16px 20px;
     /* Larger padding */
-    border-radius: 32px;
+    border-radius: 24px;
     /* Larger radius */
-    border: 1px solid rgba(40, 54, 24, .14);
-    background: rgba(254, 250, 224, .65);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    box-shadow: 0 4px 20px rgba(40, 54, 24, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    background: rgba(9, 14, 18, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 8px 24px rgba(8, 12, 16, 0.35);
     /* Subtle lift */
 }
 
@@ -252,29 +300,16 @@
     width: 20px;
     height: 20px;
     /* Default fallback */
-    color: #606c38;
+    color: #2b9d8f;
     flex-shrink: 0;
 }
 
 /* Differentiated calm colors matching site palette */
-.fact:nth-child(1) .fact__icon {
-    color: #bc6c25;
-    /* Earthy terra-cotta */
-}
-
-.fact:nth-child(2) .fact__icon {
-    color: #606c38;
-    /* Muted olive */
-}
-
-.fact:nth-child(3) .fact__icon {
-    color: var(--deep);
-    /* Deep forest */
-}
-
+.fact:nth-child(1) .fact__icon,
+.fact:nth-child(2) .fact__icon,
+.fact:nth-child(3) .fact__icon,
 .fact:nth-child(4) .fact__icon {
-    color: #dda15e;
-    /* Warm sand/orange */
+    color: #2b9d8f;
 }
 
 .fact__k {
@@ -293,7 +328,7 @@
     font-weight: 600;
     /* Semi-bold */
     line-height: 1.4;
-    color: rgba(40, 54, 24, .96);
+    color: #fff;
     letter-spacing: -0.2px;
 }
 
@@ -480,6 +515,9 @@
 
 /* Mobile portrait */
 @media (max-width: 480px) {
+    .screen-02 {
+        --hero-side: 16px;
+    }
     .screen-02__inner {
         gap: 12px;
         padding-top: 88px;
@@ -559,6 +597,9 @@
 
 /* Small mobile */
 @media (max-width: 360px) {
+    .screen-02 {
+        --hero-side: 14px;
+    }
     .screen-02__inner {
         padding-top: 72px;
         padding-bottom: 16px;

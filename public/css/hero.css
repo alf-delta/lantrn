@@ -310,7 +310,7 @@
   inset: 0;
   z-index: 5;
   display: grid;
-  grid-template-columns: minmax(260px, 0.95fr) minmax(320px, 1.05fr);
+  grid-template-columns: 1fr;
   align-items: end;
   gap: clamp(18px, 3.5vw, 46px);
   padding: clamp(110px, 18vh, 190px) var(--hero-side) clamp(32px, 8vh, 76px);
@@ -333,6 +333,42 @@
   width: min(58vw, 760px);
   justify-self: end;
   margin-right: calc(var(--hero-side) * -1);
+  transform: translateX(-1vw);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.hero-services__shape {
+  width: 49.5vw;
+  height: 49.5vw;
+  max-width: 540px;
+  max-height: 540px;
+  min-width: 270px;
+  min-height: 270px;
+  margin: 0 0 14px;
+  filter: drop-shadow(0 12px 24px rgba(15, 23, 28, 0.25));
+}
+
+.hero-services__shape svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.hero-services__shape-image {
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.hero-services__shape-image.is-active {
+  opacity: 1;
+}
+
+.hero-services__shape-path {
+  fill: #fff;
 }
 
 .hero-services__track {
@@ -340,6 +376,7 @@
   gap: 16px;
   align-items: stretch;
   will-change: transform;
+  margin-left: 6vw;
 }
 
 .hero-service-card {
@@ -349,12 +386,30 @@
   padding: 16px;
   border-radius: 20px;
   background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.35);
+  border: none;
   box-shadow: none;
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
   min-width: clamp(180px, 18vw, 240px);
   flex: 0 0 auto;
+  position: relative;
+  z-index: 2;
+  filter: blur(0) contrast(1);
+  transition: transform 0.26s ease, filter 0.14s ease, opacity 0.2s ease;
+}
+
+.hero-service-card + .hero-service-card {
+  transform: translateY(10px) scale(0.94);
+  filter: blur(1.4px) contrast(0.9);
+  opacity: 0.7;
+  z-index: 1;
+}
+
+.hero-service-card + .hero-service-card + .hero-service-card {
+  transform: translateY(18px) scale(0.9);
+  filter: blur(2.2px) contrast(0.86);
+  opacity: 0.52;
+  z-index: 0;
 }
 
 .hero-service-card__title {
@@ -385,8 +440,7 @@
   align-items: center;
 }
 
-.hero-service-card__cta,
-.hero-service-card__info {
+.hero-service-card__cta {
   padding: 8px 14px;
   border-radius: 999px;
   border: 1px solid #2b9d8f;
@@ -398,8 +452,7 @@
   transition: all 0.2s ease;
 }
 
-.hero-service-card__cta:hover,
-.hero-service-card__info:hover {
+.hero-service-card__cta:hover {
   background: rgba(255, 255, 255, 0.28);
   color: #2b9d8f;
   border-color: #2b9d8f;

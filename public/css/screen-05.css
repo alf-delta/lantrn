@@ -199,7 +199,7 @@
     color: var(--accent);
 }
 
-.fact__v {
+.screen-05 .fact__v {
     font-family: 'Inter', sans-serif;
     font-size: 13px;
     color: rgba(40, 54, 24, 0.8);
