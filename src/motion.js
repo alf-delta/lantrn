@@ -443,12 +443,13 @@ if (enableGsapAnimations) {
   if (!heroScreen) return;
   const track = heroScreen.querySelector('.hero-services__track');
   if (!track) return;
-  const shape = heroScreen.querySelector('.hero-services__shape-path');
   const shapeImages = Array.from(heroScreen.querySelectorAll('.hero-services__shape-image'));
   const serviceTitle = heroScreen.querySelector('.screen-02__service-title');
   const serviceDesc = heroScreen.querySelector('.screen-02__service-desc');
   const screenHeadline = heroScreen.querySelector('.screen-02__headline');
   const screenSubs = Array.from(heroScreen.querySelectorAll('.screen-02__sub'));
+  const priceValue = heroScreen.querySelector('.screen-02__price-value');
+  const tabs = Array.from(heroScreen.querySelectorAll('.screen-02__tab'));
   const defaultHeadline = screenHeadline ? screenHeadline.innerHTML : '';
   const defaultSubs = screenSubs.map((el) => el.textContent || '');
   const prevBtn = heroScreen.querySelector('.hero-services__btn[data-dir="prev"]');
@@ -456,99 +457,20 @@ if (enableGsapAnimations) {
   const cards = () => Array.from(track.children);
 
   let isAnimating = false;
-  let shapeIndex = 0;
-  const morphState = { t: 0 };
-  let morphTween = null;
-
-  const rawShapes = [
-    // diamond
-    'M49.5511 169.059C74.3326 188.98 109.667 188.98 134.449 169.059C140.75 163.993 146.841 158.536 152.689 152.689C158.536 146.841 163.993 140.75 169.059 134.449C188.98 109.667 188.98 74.3326 169.059 49.5511C163.993 43.2499 158.536 37.1591 152.689 31.3113C146.841 25.4636 140.75 20.0069 134.449 14.9413C109.667 -4.98045 74.3326 -4.98044 49.5511 14.9413C43.2499 20.0069 37.1591 25.4636 31.3113 31.3113C25.4636 37.1591 20.0069 43.2499 14.9413 49.5511C-4.98045 74.3326 -4.98044 109.667 14.9413 134.449C20.0069 140.75 25.4636 146.841 31.3113 152.689C37.1591 158.536 43.2499 163.993 49.5511 169.059Z',
-    // pill
-    'M153.587 22.4127C183.471 52.2963 183.471 100.747 153.587 130.631L130.631 153.587C100.747 183.471 52.2963 183.471 22.4127 153.587C-7.4709 123.704 -7.4709 75.2528 22.4127 45.3692L45.3692 22.4127C75.2528 -7.4709 123.704 -7.4709 153.587 22.4127Z',
-    // clover
-    'M92 12C80.568 12 69.9033 6.62805 59.1725 2.68596C54.4428 0.948493 49.3322 0 44 0C19.6995 0 0 19.6995 0 44C0 49.3322 0.948493 54.4428 2.68596 59.1725C6.62806 69.9033 12 80.568 12 92C12 103.432 6.62806 114.097 2.68596 124.828C0.948493 129.557 0 134.668 0 140C0 164.301 19.6995 184 44 184C49.3322 184 54.4428 183.052 59.1724 181.314C69.9033 177.372 80.568 172 92 172C103.432 172 114.097 177.372 124.828 181.314C129.557 183.052 134.668 184 140 184C164.301 184 184 164.301 184 140C184 134.668 183.052 129.557 181.314 124.828C177.372 114.097 172 103.432 172 92C172 80.568 177.372 69.9033 181.314 59.1724C183.052 54.4428 184 49.3322 184 44C184 19.6995 164.301 0 140 0C134.668 0 129.557 0.948493 124.828 2.68596C114.097 6.62806 103.432 12 92 12Z',
-    // hive
-    'M1200.18 600C1200.18 678.966 1150.09 747.415 1121.75 816.043C1092.16 887.166 1078.07 970.767 1024.42 1024.24C970.766 1077.9 887.344 1091.98 816.221 1121.57C747.594 1150.09 679.144 1200 600.178 1200C521.212 1200 452.763 1149.91 384.135 1121.57C313.012 1091.98 229.412 1077.9 175.936 1024.24C122.282 970.588 108.2 887.166 78.6096 816.043C50.0891 747.415 0 678.966 0 600C0 521.034 50.0891 452.585 78.4314 383.957C108.021 312.834 122.103 229.234 175.758 175.758C229.412 122.103 312.834 108.021 383.957 78.4314C452.585 49.9109 521.034 0 600 0C678.966 0 747.415 50.0891 816.043 78.4314C887.166 108.021 970.766 122.103 1024.24 175.758C1077.9 229.412 1091.98 312.834 1121.57 383.957C1150.27 452.585 1200.18 521.034 1200.18 600Z',
-    // scallop
-    'M214.517 1.09144C218.079 0.415939 223.099 1.21243 227.367 3.51621C232.185 6.11741 237.245 8.11368 242.103 10.5788C249.867 14.5209 257.722 18.3269 265.986 21.1499C268.155 21.891 270.673 22.0472 272.807 22.1027C277.66 22.2287 282.387 23.5545 287.21 23.3428C292.492 23.1109 297.628 24.3712 302.88 24.593C309.635 24.8803 316.249 26.6296 322.066 30.4709C325.986 33.062 329.154 36.5101 331.818 40.2405C334.597 44.1373 337.332 48.0844 340.036 52.0467C343.487 57.1029 346.841 62.2196 350.383 67.2103C353.415 71.4801 357.158 75.0442 361.573 77.9428C365.442 80.4835 369.15 83.2712 372.959 85.9178C376.889 88.65 380.92 91.2512 384.785 94.0742C391.207 98.7625 397.493 103.693 400.328 111.496C401.635 115.101 402.477 118.836 402.881 122.788C403.365 127.522 403.022 132.331 403.885 136.929C404.51 140.266 403.955 143.668 404.818 146.789C406.251 151.986 404.803 157.446 406.74 162.517C407.891 165.527 409.434 168.4 410.539 171.384C412.668 177.146 415.751 182.444 418.132 188.08C420.13 192.819 422.425 197.522 424.902 202.09C426.269 204.605 426.506 207.499 426.743 210.201C427.147 214.733 427.268 219.375 425.79 223.817C425.301 225.299 424.468 226.665 423.838 228.102C418.929 239.318 413.581 250.323 408.375 261.403C406.851 264.649 405.222 268.264 405.62 272.312C406.17 277.973 404.742 283.579 404.354 289.21C404.102 292.9 404.435 296.776 403.506 300.32C402.528 304.04 402.704 307.836 401.983 311.567C401.307 315.035 400.005 318.055 398.467 321.024C396.005 325.778 392.16 329.321 387.696 332.235C384.512 334.312 381.399 336.5 378.261 338.647C374.109 341.496 369.937 344.344 365.881 347.298C361.542 350.459 356.714 353.176 353.349 357.511C350.464 361.232 347.77 365.118 345.222 369.081C344.052 370.905 342.599 372.498 341.342 374.232C339.057 377.388 337.165 380.791 334.819 383.891C331.969 387.662 329.603 391.801 325.935 394.946C321.667 398.611 316.996 401.243 311.426 402.584C308.5 403.284 305.549 402.851 302.794 403.557C298.566 404.645 294.243 403.778 290.156 404.625C286.817 405.316 283.436 404.807 280.278 405.583C275.072 406.863 269.659 405.941 264.548 407.514C259.539 409.056 254.988 411.647 250.357 414.007C241.437 418.549 232.25 422.521 223.008 426.292C217.797 428.419 212.05 428.127 206.35 426.856C198.928 425.208 192.637 421.165 185.862 418.15C178.108 414.702 170.419 411.098 162.62 407.761C160.935 407.04 158.816 406.571 157.106 406.626C151.471 406.813 145.982 405.618 140.432 405.215C135.372 404.847 130.236 405.018 125.277 404.207C122.129 403.693 118.809 404.197 115.939 403.148C112.559 401.918 109.073 400.744 105.945 398.803C101.828 396.252 98.8214 392.663 95.7742 388.978C92.5909 385.126 90.2147 380.746 87.1373 376.834C85.4674 374.711 83.7773 372.554 82.3294 370.215C80.0743 366.565 77.229 363.283 74.9436 359.644C71.1044 353.529 64.8386 350.544 59.1731 346.698C56.1713 344.661 53.4773 342.141 50.3898 340.195C46.1167 337.503 42.0505 334.489 37.9843 331.529C32.8384 327.784 28.6814 322.944 26.3657 316.794C25.2861 313.926 24.7816 310.977 24.1914 307.983C23.3236 303.577 24.0249 299.085 23.1168 294.846C22.4004 291.493 22.9957 288.131 22.2087 284.965C21.1997 280.902 21.8253 276.803 21.1947 272.821C20.4884 268.39 20.1503 263.671 17.9558 259.724C14.6766 253.811 12.0128 247.631 9.10189 241.561C5.94375 234.983 2.47787 228.505 0.409435 221.462C-0.095061 219.748 0.258086 217.798 0.106737 215.963C-0.473433 208.94 1.55464 202.674 4.71278 196.428C6.8468 192.204 8.61758 187.692 10.5347 183.322C12.6788 178.442 15.2315 173.693 17.4917 168.834C18.8639 165.884 19.661 162.693 20.4934 159.502C21.4772 155.747 20.6498 151.951 21.4721 148.367C22.4458 144.132 21.6437 139.807 22.5366 135.744C23.364 131.978 22.6426 128.182 23.5052 124.613C24.4083 120.878 24.5092 117.046 25.7957 113.291C27.183 109.243 29.1556 105.719 31.6983 102.543C34.0694 99.5741 37.1821 97.1947 40.3453 95.0018C44.2804 92.2695 48.4223 89.8448 52.1959 86.8605C54.4611 85.0709 57.0492 83.6795 59.3194 81.895C62.4473 79.44 66.014 77.6806 69.0763 75.0845C74.0961 70.8298 77.3248 65.2796 81.0732 60.0822C83.7773 56.3266 86.6277 52.6617 89.125 48.7751C91.9502 44.3843 94.9317 40.0792 98.2664 36.1219C101.49 32.2958 105.516 29.1249 110.44 27.3958C116.923 25.1173 123.678 24.9005 130.413 24.1494C134.736 23.6654 139.146 24.099 143.303 23.1764C147.238 22.3043 151.158 22.9445 154.957 22.2237C158.72 21.5078 162.529 20.8172 166.141 19.2343C171.529 16.87 176.594 13.7647 182.063 11.7332C187.29 9.79236 191.82 6.42491 197.254 4.97812C198.585 4.62524 199.932 3.67752 201.108 2.95665C204.947 0.602459 209.028 1.35862 214.522 1.07632L214.517 1.09144Z'
-  ];
-
-  const initMorphing = () => {
-    if (!shape) return null;
-    const svgNS = 'http://www.w3.org/2000/svg';
-    const tempSvg = document.createElementNS(svgNS, 'svg');
-    const tempPath = document.createElementNS(svgNS, 'path');
-    tempSvg.setAttribute('width', '0');
-    tempSvg.setAttribute('height', '0');
-    tempSvg.style.position = 'absolute';
-    tempSvg.style.left = '-9999px';
-    tempSvg.style.top = '-9999px';
-    tempSvg.style.opacity = '0';
-    tempSvg.appendChild(tempPath);
-    document.body.appendChild(tempSvg);
-
-    const sampleCount = 72;
-    const normalizePoints = (d) => {
-      tempPath.setAttribute('d', d);
-      const len = tempPath.getTotalLength();
-      const bbox = tempPath.getBBox();
-      const pts = [];
-      for (let i = 0; i < sampleCount; i++) {
-        const p = tempPath.getPointAtLength((len * i) / (sampleCount - 1));
-        const x = ((p.x - bbox.x) / bbox.width) * 200;
-        const y = ((p.y - bbox.y) / bbox.height) * 200;
-        pts.push([x, y]);
-      }
-      return pts;
-    };
-
-    const pointsToPath = (pts) => {
-      if (!pts.length) return '';
-      const parts = [`M${pts[0][0].toFixed(2)} ${pts[0][1].toFixed(2)}`];
-      for (let i = 1; i < pts.length; i++) {
-        parts.push(`L${pts[i][0].toFixed(2)} ${pts[i][1].toFixed(2)}`);
-      }
-      parts.push('Z');
-      return parts.join(' ');
-    };
-
-    const polygonArea = (pts) => {
-      let sum = 0;
-      for (let i = 0; i < pts.length; i++) {
-        const [x1, y1] = pts[i];
-        const [x2, y2] = pts[(i + 1) % pts.length];
-        sum += (x1 * y2 - x2 * y1);
-      }
-      return sum / 2;
-    };
-
-    const normalizeWinding = (pts, clockwise) => {
-      const isClockwise = polygonArea(pts) < 0;
-      if (isClockwise === clockwise) return pts;
-      return pts.slice().reverse();
-    };
-
-    const shapesPoints = rawShapes.map((d) => normalizeWinding(normalizePoints(d), true));
-    shape.setAttribute('d', pointsToPath(shapesPoints[0]));
-
-    return { pointsToPath, shapesPoints, tempSvg };
-  };
-
-  const morphData = initMorphing();
   const setShapeImage = (card) => {
     if (!shapeImages.length || !card) return;
     const src = card.dataset.shapeImage;
     if (!src) return;
     const active = shapeImages.find((img) => img.classList.contains('is-active')) || shapeImages[0];
     const inactive = shapeImages.find((img) => img !== active) || shapeImages[0];
-    inactive.setAttribute('href', src);
-    inactive.setAttributeNS('http://www.w3.org/1999/xlink', 'href', src);
+    inactive.setAttribute('src', src);
     inactive.classList.add('is-active');
     active.classList.remove('is-active');
   };
 
   const setServiceCopy = (card) => {
     if (!card) return;
+    const activeKey = card.dataset.serviceKey || '';
     if (serviceTitle) {
       const fallbackTitle = card.querySelector('.hero-service-card__title');
       serviceTitle.textContent = fallbackTitle ? fallbackTitle.textContent : '';
@@ -589,6 +511,16 @@ if (enableGsapAnimations) {
         if (val) val.textContent = data.v;
       });
     }
+
+    if (priceValue) {
+      priceValue.textContent = card.dataset.price || priceValue.textContent;
+    }
+
+    if (tabs.length && activeKey) {
+      tabs.forEach((tab) => {
+        tab.classList.toggle('is-active', tab.dataset.serviceTab === activeKey);
+      });
+    }
   };
 
   setShapeImage(track.children[0]);
@@ -615,56 +547,7 @@ if (enableGsapAnimations) {
     });
   };
 
-  const morphShape = (dir) => {
-    if (!shape || !morphData) return;
-    const { pointsToPath, shapesPoints } = morphData;
-    const from = shapesPoints[shapeIndex];
-    shapeIndex = (shapeIndex + (dir === 'next' ? 1 : -1) + shapesPoints.length) % shapesPoints.length;
-
-    // Update dots with new shapeIndex
-    updateDots(shapeIndex);
-
-    let to = shapesPoints[shapeIndex];
-    if (!from || !to) return;
-
-    const rotateToMatch = (fromPts, toPts) => {
-      const len = fromPts.length;
-      let bestOffset = 0;
-      let bestScore = Infinity;
-      for (let offset = 0; offset < len; offset++) {
-        let score = 0;
-        for (let i = 0; i < len; i++) {
-          const [fx, fy] = fromPts[i];
-          const [tx, ty] = toPts[(i + offset) % len];
-          const dx = fx - tx;
-          const dy = fy - ty;
-          score += dx * dx + dy * dy;
-        }
-        if (score < bestScore) {
-          bestScore = score;
-          bestOffset = offset;
-        }
-      }
-      return toPts.map((_, i) => toPts[(i + bestOffset) % len]);
-    };
-
-    to = rotateToMatch(from, to);
-
-    if (morphTween) morphTween.kill();
-    morphState.t = 0;
-    morphTween = gsap.to(morphState, {
-      t: 1,
-      duration: 0.5,
-      ease: 'power2.inOut',
-      onUpdate: () => {
-        const pts = from.map((p, i) => [
-          p[0] + (to[i][0] - p[0]) * morphState.t,
-          p[1] + (to[i][1] - p[1]) * morphState.t
-        ]);
-        shape.setAttribute('d', pointsToPath(pts));
-      }
-    });
-  };
+  let activeIndex = 0;
 
   const getOffset = () => {
     const first = track.children[0];
@@ -683,7 +566,8 @@ if (enableGsapAnimations) {
     const nextCard = track.children[1] || first;
     setShapeImage(nextCard);
     setServiceCopy(nextCard);
-    morphShape('next');
+    activeIndex = (activeIndex + 1) % track.children.length;
+    updateDots(activeIndex);
     gsap.to(first, {
       autoAlpha: 0,
       y: 28,
@@ -716,7 +600,8 @@ if (enableGsapAnimations) {
 
     setShapeImage(last);
     setServiceCopy(last);
-    morphShape('prev');
+    activeIndex = (activeIndex - 1 + track.children.length) % track.children.length;
+    updateDots(activeIndex);
     track.insertBefore(last, track.firstChild);
     gsap.set(track, { x: -offset });
     gsap.fromTo(last, { autoAlpha: 0, scale: 0.92 }, { autoAlpha: 1, scale: 1, duration: 0.35 });
