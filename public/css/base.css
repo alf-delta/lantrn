@@ -45,6 +45,10 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+body.modal-open {
+  overflow: hidden;
+}
+
 /* Touch device optimizations */
 @media (hover: none) and (pointer: coarse) {
   a, button {

@@ -1,360 +1,201 @@
 /* screen-04.css */
 
-/* 1. Environment & Base */
-.screen-04 {
-    position: relative;
-    width: 100%;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    overflow: hidden;
-    padding: 0;
-}
-
-.screen-04__env {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-    background-color: #FEFAE0;
-    /* Light warm base */
-}
-
-.screen-04__noise {
-    position: absolute;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
-    opacity: 0.1;
-    mix-blend-mode: overlay;
-}
-
-/* 2. Layout Structure */
-/* We use a grid or flex logic where content is strictly centered and max-width-capped */
 .screen-04__inner {
-    position: relative;
-    z-index: 5;
-    /* Text above figures */
-    width: 100%;
-    height: 100%;
-    margin: 0 auto;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 60px 40px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 28px;
+  padding-top: 120px;
+  padding-bottom: 80px;
+  position: relative;
 }
 
-/* 3. Content - Centered Block */
-.screen-04__content {
-    width: 100%;
-    max-width: 1080px;
-    /* Constrain width so text surely sits in middle */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 56px;
-    z-index: 10;
+.screen-04__team {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(280px, 1fr));
+  gap: 36px;
+  justify-content: space-between;
+  align-items: stretch;
+  justify-items: stretch;
+  max-width: 900px;
+  width: 100%;
+  margin: 0 auto;
 }
 
-/* Header */
-.screen-04__header {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-    max-width: 700px;
+.screen-04__card {
+  position: relative;
+  display: block;
+  width: 100%;
+  min-height: 360px;
+  aspect-ratio: 3 / 4;
+  padding: 0;
+  border: 0;
+  background: none;
+  box-shadow: none;
+  cursor: pointer;
+  perspective: 1200px;
 }
 
-.screen-04__headline {
-    margin: 0;
-    font-family: 'Inter', sans-serif;
-    font-weight: 900;
-    letter-spacing: -1.2px;
-    line-height: 1.1;
-    font-size: clamp(32px, 3.5vw, 56px);
-    color: var(--deep);
+.screen-04__card-inner {
+  position: relative;
+  min-height: 360px;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.55s cubic-bezier(.2, .8, .2, 1);
 }
 
-.screen-04__subhead {
-    margin: 0;
-    font-family: 'Inter', sans-serif;
-    font-size: clamp(16px, 1.2vw, 20px);
-    line-height: 1.5;
-    color: rgba(40, 54, 24, 0.8);
-    font-weight: 500;
+.screen-04__card.is-flipped .screen-04__card-inner {
+  transform: rotateY(180deg);
 }
 
-/* Cards Grid */
-.screen-04__cards {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    width: 100%;
-    align-items: stretch;
+.screen-04__card-face {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(9, 14, 18, 0.55);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 10px 28px rgba(8, 12, 16, 0.35);
+  padding: 14px;
+  backface-visibility: hidden;
 }
 
-/* Pricing Card Component */
-.pricing-card {
-    display: flex;
-    flex-direction: column;
-    padding: 32px 24px;
-    text-align: left;
-    background: rgba(255, 255, 255, 0.45);
-    /* slightly more opaque */
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    border: 1px solid rgba(255, 255, 255, 0.8);
-    border-radius: 32px;
-    box-shadow: 0 10px 40px rgba(40, 54, 24, 0.05);
-    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease, background 0.3s ease;
+.screen-04__card-front {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
-.pricing-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 50px rgba(40, 54, 24, 0.12);
-    background: rgba(255, 255, 255, 0.85);
-    border-color: rgba(255, 255, 255, 0.95);
-    z-index: 12;
+.screen-04__card-back {
+  transform: rotateY(180deg);
+  background: linear-gradient(165deg, #f7e7c8 0%, #f2ddbd 48%, #e8d1ab 100%);
+  border-color: rgba(90, 72, 45, 0.22);
+  color: #2f281c;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
 }
 
-.pricing-card__title {
-    margin: 0 0 8px 0;
-    font-family: 'Inter', sans-serif;
-    font-size: 20px;
-    font-weight: 800;
-    color: var(--deep);
+.screen-04__back-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 800;
+  color: #2f281c;
 }
 
-.pricing-card__price {
-    font-family: 'Inter', sans-serif;
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--accent);
-    margin-bottom: 20px;
+.screen-04__back-body {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(47, 40, 28, 0.8);
 }
 
-.pricing-card__desc {
-    font-family: 'Inter', sans-serif;
-    font-size: 15px;
-    line-height: 1.5;
-    color: rgba(40, 54, 24, 0.8);
-    margin: 0 0 24px 0;
-    flex-grow: 1;
+.screen-04__photo {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
-.pricing-card__list {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 32px 0;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+.screen-04__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
-.pricing-card__list li {
-    font-family: 'Inter', sans-serif;
-    font-size: 14px;
-    color: rgba(40, 54, 24, 0.8);
-    padding-left: 18px;
-    position: relative;
-    font-weight: 500;
+.screen-04__name {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 800;
+  color: #e76f51;
 }
 
-.pricing-card__list li::before {
-    content: '•';
-    position: absolute;
-    left: 0;
-    top: 0;
-    color: var(--olive);
-    font-weight: 900;
+.screen-04__desc {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.78);
 }
 
-.pricing-card__cta {
-    display: inline-block;
-    padding: 14px 20px;
-    background: rgba(40, 54, 24, 0.04);
-    border: 1px solid rgba(40, 54, 24, 0.08);
-    border-radius: 16px;
-    color: var(--deep);
-    font-family: 'Inter', sans-serif;
-    font-size: 15px;
-    font-weight: 700;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    text-decoration: none;
+.screen-04__meta {
+  position: relative;
+  padding-right: 72px;
+  min-height: 54px;
 }
 
-.pricing-card__cta:hover {
-    background: var(--accent);
-    color: var(--cream);
-    border-color: var(--accent);
+.screen-04__text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
-/* 4. Figures */
-/* 
-   We pull them strictly to the sides using absolute positioning on the main container.
-   z-index: 1 ensures they are BEHIND the content (which is z-index 10).
-   The "figures" container can be width 100% height 100% absolute.
-*/
-
-.screen-04__figures {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    pointer-events: none;
-    overflow: hidden;
+.screen-04__signature {
+  position: absolute;
+  top: -6px;
+  right: 5px;
+  width: 120px;
+  height: auto;
+  opacity: 0.9;
+  filter: drop-shadow(0 6px 14px rgba(8, 12, 16, 0.45));
+  pointer-events: none;
 }
 
-.screen-04__fig-wrap {
-    position: absolute;
-    bottom: 0;
-    transform: translateY(14px);
-    display: flex;
-    align-items: flex-end;
-    /* transition? Just static placement mostly */
-}
-
-.screen-04__fig-wrap img {
-    display: block;
-    width: auto;
-    height: auto;
-    max-height: 80vh;
-    /* Reduced slightly */
-    max-width: 35vw;
-    /* Stricter width cap to prevent overlap */
-    object-fit: contain;
-    filter: drop-shadow(0 0 40px rgba(40, 54, 24, 0.2));
-}
-
-/* 
-   4.webp LEFT (Boy)
-   Push to far left. 
-*/
-.screen-04__fig-wrap--left {
-    left: 0;
-    right: auto;
-    bottom: 0;
-    justify-content: flex-start;
-    transform-origin: bottom left;
-}
-
-/* 
-   3.webp RIGHT (Girl)
-   Push to far right. Mirror inward.
-*/
-.screen-04__fig-wrap--right {
-    right: 0;
-    left: auto;
-    bottom: 0;
-    justify-content: flex-end;
-    transform-origin: bottom right;
-}
-
-.screen-04__fig-wrap--right img {
-    transform: scaleX(-1);
-}
-
-
-/* 5. Responsive */
-@media (max-width: 1280px) {
-
-    /* Reduce figures as screen narrows to prevent overlap with content */
-    .screen-04__fig-wrap img {
-        max-height: 70vh;
-        max-width: 30vw;
-    }
-}
-
-@media (max-width: 1024px) {
-
-    /* Mobile / Tablet Vertical Layout */
-    .screen-04 {
-        height: auto;
-        /* Allow scroll */
-        min-height: 100vh;
-        overflow-y: auto;
-        justify-content: flex-start;
-    }
-
-    .screen-04__inner {
-        padding: 80px 24px;
-        height: auto;
-    }
-
-    .screen-04__content {
-        max-width: 500px;
-    }
-
-    .screen-04__cards {
-        grid-template-columns: 1fr;
-        /* Stack cards */
-        gap: 20px;
-    }
-
-    /* Figures on mobile: maybe just 1 or bottom placement? 
-       Let's put them at the bottom, small.
-    */
-    .screen-04__figures {
-        /* On mobile, maybe hide or simplify */
-        top: auto;
-        bottom: 0;
-        height: 300px;
-        /* z-index: 0? */
-    }
-
-    .screen-04__fig-wrap img {
-        max-height: 300px;
-        max-width: 45vw;
-    }
+.screen-04__signature[src*="Jennifer_s.webp"] {
+  width: 150px;
+  right: 9px;
+  transform: rotate(-5deg);
 }
 
 @media (max-width: 768px) {
-    .screen-04 {
-        justify-content: flex-start;
-    }
+  .screen-04__card-inner {
+    min-height: 320px;
+  }
+}
 
-    .screen-04__inner {
-        padding: 96px 20px 24px;
-        height: auto;
-    }
+.screen-04__summary {
+  width: 100%;
+  padding: 18px 20px;
+  border-radius: 20px;
+  border: 2px solid #e76f51;
+  background: rgba(10, 16, 20, 0.55);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 12px 32px rgba(8, 12, 16, 0.4);
+  max-width: 980px;
+  margin: 0 auto;
+}
 
-    .screen-04__content {
-        align-items: flex-start;
-        gap: 32px;
-    }
+.screen-04__summary-text {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.82);
+  max-width: 880px;
+}
 
-    .screen-04__header {
-        align-items: flex-start;
-        text-align: left;
-    }
+@media (max-width: 1024px) {
+  .screen-04__inner {
+    padding-top: 120px;
+  }
 
-    .screen-04__cards {
-        grid-template-columns: auto;
-        grid-auto-flow: column;
-        grid-auto-columns: minmax(220px, 76vw);
-        gap: 16px;
-        overflow-x: auto;
-        padding-bottom: 6px;
-        scroll-snap-type: x mandatory;
-        -webkit-overflow-scrolling: touch;
-    }
+  .screen-04__team {
+    max-width: 760px;
+  }
+}
 
-    .pricing-card {
-        scroll-snap-align: start;
-    }
+@media (max-width: 768px) {
+  .screen-04__inner {
+    padding-top: 100px;
+    padding-bottom: 56px;
+  }
 
-    .screen-04__figures {
-        height: 35vh;
-        bottom: 0;
-        top: auto;
-    }
-
-    .screen-04__fig-wrap img {
-        max-height: 38vh;
-        max-width: 55vw;
-    }
+  .screen-04__team {
+    grid-template-columns: 1fr;
+  }
 }

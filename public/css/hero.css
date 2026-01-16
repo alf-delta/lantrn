@@ -43,7 +43,7 @@
   position: relative;
   left: auto;
   top: auto;
-  max-width: 520px;
+  max-width: 900px;
   z-index: 4;
   display: flex;
   flex-direction: column;
@@ -52,11 +52,13 @@
 
 .hero-copy h1 {
   margin: 0;
-  font-weight: 900;
-  letter-spacing: -0.8px;
-  line-height: 1.05;
-  font-size: clamp(42px, 7.2vw, 96px);
+  font-weight: 400;
+  letter-spacing: -0.4px;
+  line-height: 1.1;
+  font-size: clamp(32px, 5.5vw, 72px);
   color: #fff;
+  font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  font-style: italic;
 }
 
 .hero-copy .sub {
@@ -101,6 +103,38 @@
   transform: translateX(-50%);
   margin: 0;
   z-index: 6;
+}
+
+.hero-home-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: rgba(255, 255, 255, 0.92);
+  margin-right: 0;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.hero-home-btn:hover {
+  background: rgba(255, 255, 255, 0.28);
+  transform: scale(1.05);
+}
+
+.hero-home-btn:active {
+  background-color: rgba(255, 255, 255, 0.14);
+  transform: scale(0.95);
+}
+
+.hero-nav-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 
 .hero-nav {
@@ -376,7 +410,7 @@
   gap: 16px;
   align-items: stretch;
   will-change: transform;
-  margin-left: 6vw;
+  margin-left: 0;
 }
 
 .hero-service-card {
@@ -398,14 +432,14 @@
   transition: transform 0.26s ease, filter 0.14s ease, opacity 0.2s ease;
 }
 
-.hero-service-card + .hero-service-card {
+.hero-service-card+.hero-service-card {
   transform: translateY(10px) scale(0.94);
   filter: blur(1.4px) contrast(0.9);
   opacity: 0.7;
   z-index: 1;
 }
 
-.hero-service-card + .hero-service-card + .hero-service-card {
+.hero-service-card+.hero-service-card+.hero-service-card {
   transform: translateY(18px) scale(0.9);
   filter: blur(2.2px) contrast(0.86);
   opacity: 0.52;
@@ -414,7 +448,7 @@
 
 .hero-service-card__title {
   margin: 0;
-  font-size: 18px;
+  font-size: 27px;
   font-weight: 800;
   color: #e76f51;
   align-self: flex-start;
@@ -459,27 +493,61 @@
 }
 
 .hero-services__controls {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 8%;
   display: flex;
-  gap: 10px;
-  justify-content: flex-start;
-  margin-top: 14px;
+  gap: 16px;
+  justify-content: center;
+  z-index: 10;
+  width: 100%;
+  pointer-events: none;
+}
+
+.hero-services__controls>* {
+  pointer-events: auto;
 }
 
 .hero-services__btn {
-  width: 42px;
-  height: 42px;
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  background: rgba(255, 255, 255, 0.18);
+  width: auto;
+  height: auto;
+  padding: 0;
+  border-radius: 0;
+  border: none;
+  background: transparent;
   color: #fff;
   cursor: pointer;
-  font-size: 18px;
-  transition: background 0.2s ease, transform 0.2s ease;
+  font-size: 40px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  opacity: 0.8;
 }
 
 .hero-services__btn:hover {
-  background: rgba(255, 255, 255, 0.28);
-  transform: translateY(-1px);
+  background: transparent;
+  transform: scale(1.1);
+  opacity: 1;
+}
+
+/* Dots */
+.hero-services__dots {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 16px;
+}
+
+.hero-services__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.hero-services__dot.is-active {
+  background: #fff;
+  transform: scale(1.2);
 }
 
 /* CTA */
@@ -649,6 +717,7 @@
     --hero-side: clamp(20px, 5vw, 48px);
     --hero-top-pad: 12px;
   }
+
   .hero-nav {
     display: none;
   }
@@ -704,6 +773,7 @@
     --hero-side: 18px;
     --hero-top-pad: 10px;
   }
+
   .hero-top-inner {
     flex-wrap: wrap;
     gap: 10px;
@@ -785,7 +855,7 @@
   }
 
   .hero-copy h1 {
-    font-size: clamp(30px, 9vw, 54px);
+    font-size: clamp(28px, 8vw, 48px);
   }
 
   .hero-copy .sub {
@@ -824,6 +894,7 @@
     --hero-side: 16px;
     --hero-top-pad: 8px;
   }
+
   .hero-top-inner {
     padding: var(--hero-top-pad) 0;
     gap: 8px;
@@ -884,7 +955,7 @@
   }
 
   .hero-copy h1 {
-    font-size: clamp(28px, 9vw, 42px);
+    font-size: clamp(24px, 8vw, 36px);
   }
 
   .hero-copy .sub {
@@ -960,6 +1031,7 @@
     --hero-side: 14px;
     --hero-top-pad: 6px;
   }
+
   .hero-top-inner {
     padding: var(--hero-top-pad) 0;
   }

@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="/css/screen-04.css" />
   <link rel="stylesheet" href="/css/screen-05.css" />
   <link rel="stylesheet" href="/css/footer.css" />
+  <link rel="stylesheet" href="/css/modal.css" />
 
   <!-- Microsoft Clarity -->
   <script type="text/javascript">
@@ -30,16 +31,26 @@
   <section class="hero hero-stage screen" id="screen-01" data-screen>
     <div class="hero-top">
       <div class="hero-top-inner wrap">
-        <nav class="hero-nav" aria-label="Primary">
-          <a href="#screen-02">Tours</a>
-          <a href="#screen-03">Process</a>
-          <a href="#screen-04">Services</a>
-          <a href="#screen-05">About</a>
-        </nav>
+        <div class="hero-nav-left">
+          <a href="#screen-01" class="hero-home-btn" aria-label="Home">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+              <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+          </a>
+          <nav class="hero-nav" aria-label="Primary">
+            <a href="#screen-02">Services</a>
+            <a href="#screen-03">Process</a>
+            <a href="#screen-04">Team</a>
+            <a href="#screen-05">About</a>
+          </nav>
+        </div>
 
         <nav class="hero-actions" aria-label="Secondary">
-          <a href="#screen-05">Plan a trip</a>
-          <a href="#screen-05" class="action-highlight">Request a private tour</a>
+          <a href="#" data-modal-open="plan-trip" aria-haspopup="dialog" aria-controls="plan-trip-modal">Plan a trip</a>
+          <a href="#" class="action-highlight" data-modal-open="call-me-back" aria-haspopup="dialog"
+            aria-controls="call-me-back-modal">Call me back</a>
         </nav>
       </div>
     </div>
@@ -59,18 +70,19 @@
         <div class="hero-main">
           <img class="hero-logo" src="/assets/logo.png" alt="LANTRN Tours" />
           <div class="hero-copy">
-            <h1>California, curated.</h1>
+            <h1>Boutique travel experiences to restore and inspire.</h1>
             <p class="sub">
-              Private tours and transportation across Los Angeles, California, and the Western States — designed
-              around your pace.
+              We create private travel that adapts to you — from a single afternoon to long journeys across the West,
+              always at your pace, with care in the details that matter.
             </p>
             <div class="hero-cta-row">
-              <a class="cta-pill" href="#screen-04">
+              <a class="cta-pill" href="#" data-modal-open="plan-trip" aria-haspopup="dialog"
+                aria-controls="plan-trip-modal">
                 <span class="cta-text-desktop">Book a tour</span>
                 <span class="cta-text-mobile">Book</span>
                 <span class="cta-arrow">→</span>
               </a>
-              <a class="cta-secondary" href="#screen-04">
+              <a class="cta-secondary" href="#screen-02">
                 <span class="cta-text-desktop">View services</span>
                 <span class="cta-text-mobile">Services</span>
               </a>
@@ -95,6 +107,7 @@
       <!-- Big gesture type (non-readable, atmosphere) -->
       <!-- Big gesture type (non-readable, atmosphere) -->
       <!-- Text system (readable) -->
+      <p class="screen-02__eyebrow" data-layer="text">Our Services</p>
       <div class="screen-02__text" data-layer="text">
         <h2 class="screen-02__headline">Boutique travel experiences<br>to restore and inspire<br>across California.</h2>
 
@@ -104,7 +117,8 @@
             to your interests, timing, and comfort.
           </p>
           <p class="screen-02__sub">
-            From Los Angeles highlights to multi-day journeys across the Western States, we combine boutique hospitality,
+            From Los Angeles highlights to multi-day journeys across the Western States, we combine boutique
+            hospitality,
             local insight, and reliable private transportation.
           </p>
         </div>
@@ -175,12 +189,10 @@
                   d="M100 20 Q120 40 140 60 Q160 80 180 100 Q160 120 140 140 Q120 160 100 180 Q80 160 60 140 Q40 120 20 100 Q40 80 60 60 Q80 40 100 20 Z" />
               </clipPath>
             </defs>
-            <image class="hero-services__shape-image is-active" href="/assets/Private%20LA%20Tour.webp"
-              x="0" y="0" width="200" height="200" preserveAspectRatio="xMidYMid slice"
-              clip-path="url(#hero-shape-clip)" />
-            <image class="hero-services__shape-image" href="/assets/Private%20LA%20Tour.webp"
-              x="0" y="0" width="200" height="200" preserveAspectRatio="xMidYMid slice"
-              clip-path="url(#hero-shape-clip)" />
+            <image class="hero-services__shape-image is-active" href="/assets/Private%20LA%20Tour.webp" x="0" y="0"
+              width="200" height="200" preserveAspectRatio="xMidYMid slice" clip-path="url(#hero-shape-clip)" />
+            <image class="hero-services__shape-image" href="/assets/Private%20LA%20Tour.webp" x="0" y="0" width="200"
+              height="200" preserveAspectRatio="xMidYMid slice" clip-path="url(#hero-shape-clip)" />
           </svg>
         </div>
         <div class="hero-services__track">
@@ -241,137 +253,183 @@
             </div>
           </article>
         </div>
-        <div class="hero-services__controls" aria-label="Service navigation">
-          <button class="hero-services__btn" type="button" data-dir="prev" aria-label="Previous service">←</button>
-          <button class="hero-services__btn" type="button" data-dir="next" aria-label="Next service">→</button>
-        </div>
+
+      </div>
+
+      <!-- Controls moved to root for strict centering -->
+      <div class="hero-services__controls" aria-label="Service navigation">
+        <button class="hero-services__btn" type="button" data-dir="prev" aria-label="Previous service">←</button>
+        <div class="hero-services__dots"></div>
+        <button class="hero-services__btn" type="button" data-dir="next" aria-label="Next service">→</button>
       </div>
 
     </div>
 
-    <!-- Figure (moved out of wrap to align to viewport edge) -->
-    <div class="screen-02__figure" data-layer="figure" data-parallax="figure" aria-hidden="true">
-      <div class="screen-02__quote">
-        <p>I’m not rushed. I’m guided.<br>I travel with ease, not pressure.</p>
-      </div>
-    </div>
   </section>
 
   <!-- Screen 03: How the experience comes together -->
-  <section class="screen screen-03" id="screen-03" data-screen>
-    <!-- Background environment -->
-    <div class="screen-03__env" data-layer="env" aria-hidden="true">
-      <div class="screen-03__noise"></div>
-      <div class="screen-03__diag"></div>
+  <section class="screen screen-03 screen-02" id="screen-03" data-screen>
+    <div class="screen-02__env screen-03__env" data-layer="env" aria-hidden="true">
+      <div class="screen-02__grid"></div>
+      <div class="screen-02__noise"></div>
+      <div class="screen-02__diag"></div>
     </div>
 
-    <div class="wrap screen-03__inner">
-
-
-      <!-- Left: Content -->
-      <div class="screen-03__content" data-layer="text">
-        <h2 class="screen-03__headline">How your tour<br>comes together</h2>
-
-        <div class="screen-03__body">
-          <p class="screen-03__intro">
-            Every experience follows a clear, collaborative process. You know what to expect, where you’re going, and
-            why each stop is part of the story.
-          </p>
-
-          <div class="screen-03__process">
-            <div class="process-block">
-              <div class="process-block__number">01</div>
-              <div class="process-block__content">
-                <h3 class="process-block__title">Discovery call</h3>
-                <p class="process-block__body">We learn your interests, timing, and priorities to shape a day that feels
-                  effortless and personal.</p>
-              </div>
-            </div>
-            <div class="process-block">
-              <div class="process-block__number">02</div>
-              <div class="process-block__content">
-                <h3 class="process-block__title">Curated route</h3>
-                <p class="process-block__body">We balance iconic highlights with local gems, building in comfort,
-                  flexibility, and time to explore.</p>
-              </div>
-            </div>
-            <div class="process-block">
-              <div class="process-block__number">03</div>
-              <div class="process-block__content">
-                <h3 class="process-block__title">Day-of hosting</h3>
-                <p class="process-block__body">We handle navigation, timing, and adjustments so you can stay present and
-                  enjoy the experience.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="screen-03__footer-note">
-            Thoughtful planning makes space for discovery.
-          </div>
+    <div class="wrap screen-02__inner screen-03__inner">
+      <p class="screen-02__eyebrow" data-layer="text">How it works</p>
+      <div class="screen-03__left" data-layer="text">
+        <div class="screen-03__photo-card">
+          <img class="screen-03__photo" src="/assets/You%20reach%20out.webp" alt="You reach out step illustration" />
         </div>
+
+        <article class="screen-03__desc-item" aria-live="polite">
+          <h3 class="screen-03__desc-title">You reach out</h3>
+          <p class="screen-03__desc-body">We start with you. From the very first message, we focus on who you are, not
+            on
+            fitting you into a preset service. Your personal manager reaches out quickly to understand the context, the
+            mood of the trip, and what matters most before anything is planned.</p>
+        </article>
       </div>
 
-      <!-- Right: Figure -->
-      <div class="screen-03__figure-wrapper">
-        <div class="screen-03__figure">
-          <img src="/assets/6.webp" alt="Guests enjoying a relaxed, private tour experience" />
+      <div class="screen-03__right" data-layer="text">
+        <div class="screen-03__steps">
+          <article class="screen-03__step is-active" tabindex="0" role="button" data-title="You reach out"
+            data-desc="We start with you. From the very first message, we focus on who you are, not on fitting you into a preset service. Your personal manager reaches out quickly to understand the context, the mood of the trip, and what matters most before anything is planned."
+            data-image="/assets/You%20reach%20out.webp" data-alt="You reach out step illustration">
+            <div class="screen-03__step-badge">1</div>
+            <div class="screen-03__step-text">
+              <h3 class="screen-03__step-title">You reach out</h3>
+              <p class="screen-03__step-sub">Leave a request, and your personal manager gets in touch within 30 minutes
+                to understand what you are looking for.</p>
+            </div>
+          </article>
+          <article class="screen-03__step" tabindex="0" role="button" data-title="We learn your preferences"
+            data-desc="This is where listening happens. We talk through your pace, interests, and expectations, paying attention to both the details you mention and the ones you do not have to. The goal is to understand how you like to travel, so every decision feels natural to you."
+            data-image="/assets/We%20learn%20your%20preferences.webp"
+            data-alt="We learn your preferences step illustration">
+            <div class="screen-03__step-badge">2</div>
+            <div class="screen-03__step-text">
+              <h3 class="screen-03__step-title">We learn your preferences</h3>
+              <p class="screen-03__step-sub">A quick chat to confirm timing, priorities, and comfort — then we take it
+                from there.</p>
+            </div>
+          </article>
+          <article class="screen-03__step" tabindex="0" role="button" data-title="We design your route"
+            data-desc="Your experience is built from the inside out — around your timing, energy, and sense of curiosity. We shape a route that feels intentional but never rigid, leaving space for spontaneity while keeping the structure that makes the journey smooth and coherent."
+            data-image="/assets/We%20design%20your%20route.webp" data-alt="We design your route step illustration">
+            <div class="screen-03__step-badge">3</div>
+            <div class="screen-03__step-text">
+              <h3 class="screen-03__step-title">We design your route</h3>
+              <p class="screen-03__step-sub">Your manager puts together a plan that fits your day, your rhythm, and
+                your priorities. Nothing fixed unless you want it to be.</p>
+            </div>
+          </article>
+          <article class="screen-03__step" tabindex="0" role="button" data-title="We handle the logistics"
+            data-desc="Once the plan is set, we take care of everything behind the scenes. Scheduling, routing, timing, and coordination are handled with precision, so you never have to manage the mechanics of the trip. The process stays invisible; the experience stays effortless."
+            data-image="/assets/We%20handle%20the%20logistics.webp"
+            data-alt="We handle the logistics step illustration">
+            <div class="screen-03__step-badge">4</div>
+            <div class="screen-03__step-text">
+              <h3 class="screen-03__step-title">We handle the logistics</h3>
+              <p class="screen-03__step-sub">From scheduling to transportation and coordination, everything is managed
+                for you — quietly, smoothly, without you needing to think about the process.</p>
+            </div>
+          </article>
+          <article class="screen-03__step" tabindex="0" role="button" data-title="You travel, we stay with you"
+            data-desc="We do not disappear once the journey begins. Your manager remains present and responsive, ready to adapt the plan to the moment — whether that means slowing down, changing direction, or following something that catches your interest. You stay in the experience. We stay with the details."
+            data-image="/assets/You%20travel%20we%20stay%20with%20you.webp"
+            data-alt="You travel, we stay with you step illustration">
+            <div class="screen-03__step-badge">5</div>
+            <div class="screen-03__step-text">
+              <h3 class="screen-03__step-title">You travel, we stay with you</h3>
+              <p class="screen-03__step-sub">During the experience, your manager remains available to adjust, refine,
+                or change the plan as needed. You focus on the journey. We take care of the rest.</p>
+            </div>
+          </article>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Screen 04: Services & Pricing -->
-  <section class="screen screen-04" id="screen-04" data-screen>
-    <div class="screen-04__env" aria-hidden="true">
-      <div class="screen-04__noise"></div>
+  <!-- Screen 04: Meet our team -->
+  <section class="screen screen-03 screen-02 screen-04" id="screen-04" data-screen>
+    <div class="screen-02__env screen-03__env" data-layer="env" aria-hidden="true">
+      <div class="screen-02__grid"></div>
+      <div class="screen-02__noise"></div>
+      <div class="screen-02__diag"></div>
     </div>
 
-    <div class="wrap screen-04__inner">
-      <div class="screen-04__content">
-        <header class="screen-04__header">
-          <h2 class="screen-04__headline">Clear services.<br>Transparent planning.</h2>
-          <p class="screen-04__subhead">Choose a format that fits your schedule, interests, and group size.</p>
-        </header>
+    <div class="wrap screen-02__inner screen-04__inner">
+      <p class="screen-02__eyebrow" data-layer="text">Meet our team</p>
+      <div class="screen-04__team" data-layer="text">
+        <article class="screen-04__card" data-team-card tabindex="0" role="button" aria-pressed="false">
+          <div class="screen-04__card-inner">
+            <div class="screen-04__card-face screen-04__card-front">
+              <div class="screen-04__photo">
+                <img src="/assets/Alex.webp" alt="Alex portrait" />
+              </div>
+              <div class="screen-04__meta">
+                <div class="screen-04__text">
+                  <h3 class="screen-04__name">Alex</h3>
+                  <p class="screen-04__desc">Founder, Experience Director</p>
+                </div>
+                <img class="screen-04__signature" src="/assets/Alex_s.webp" alt="Alex signature" />
+              </div>
+            </div>
+            <div class="screen-04__card-face screen-04__card-back">
+              <h3 class="screen-04__back-title">Alex</h3>
+              <p class="screen-04__back-body">As Lantrn’s founder, I bring a wealth of knowledge and a passion for
+                history and archaeology to our team. Hailing from Ukraine, my journey as a scholar has taken me across
+                the globe, driven by an insatiable curiosity for different cultures and their histories. With a PhD in
+                archaeology, I offer a unique perspective that enriches every tour I lead. My expertise allows me to
+                unveil hidden narratives and provide fresh insights, ensuring that each of my clients experiences a
+                deeper connection with the destinations they explore. Through my guidance, our agency is dedicated to
+                delivering transformative journeys that ignite a lifelong love for learning and discovery.</p>
+            </div>
+          </div>
+        </article>
 
-        <div class="screen-04__cards">
-          <!-- Card 1: Private LA Tour -->
-          <article class="pricing-card">
-            <h3 class="pricing-card__title">Private LA Tour</h3>
-            <div class="pricing-card__price">$150 / hour</div>
-            <p class="pricing-card__desc">Custom private tours of Los Angeles with flexible timing and curated stops.</p>
-            <button class="pricing-card__cta">Book</button>
-          </article>
-
-          <!-- Card 2: Private Transportation -->
-          <article class="pricing-card">
-            <h3 class="pricing-card__title">Private Transportation</h3>
-            <div class="pricing-card__price">$150 / hour</div>
-            <p class="pricing-card__desc">Dedicated driver for airports, college visits, parties, and weddings.</p>
-            <button class="pricing-card__cta">Book</button>
-          </article>
-
-          <!-- Card 3: Multi-day Custom Tour -->
-          <article class="pricing-card">
-            <h3 class="pricing-card__title">Multi-day Custom Tour</h3>
-            <div class="pricing-card__price">Custom quote</div>
-            <p class="pricing-card__desc">Multi-day journeys through California and the Western States.</p>
-            <button class="pricing-card__cta">Book</button>
-          </article>
-        </div>
+        <article class="screen-04__card" data-team-card tabindex="0" role="button" aria-pressed="false">
+          <div class="screen-04__card-inner">
+            <div class="screen-04__card-face screen-04__card-front">
+              <div class="screen-04__photo">
+                <img src="/assets/Jennifer.webp" alt="Jennifer portrait" />
+              </div>
+              <div class="screen-04__meta">
+                <div class="screen-04__text">
+                  <h3 class="screen-04__name">Jennifer</h3>
+                  <p class="screen-04__desc">Co-Founder, Experience Designer</p>
+                </div>
+                <img class="screen-04__signature" src="/assets/Jennifer_s.webp" alt="Jennifer signature" />
+              </div>
+            </div>
+            <div class="screen-04__card-face screen-04__card-back">
+              <h3 class="screen-04__back-title">Jennifer</h3>
+              <p class="screen-04__back-body">As the co-founder of Lantrn, I am dedicated to crafting bespoke journeys
+                that reignite the sense of discovery and passion in every traveler. Growing up in Tokyo, Japan, amidst
+                a rich multicultural backdrop, I draw upon my diverse experiences to curate itineraries that captivate
+                the imagination. With a background in client services at New York's most prestigious ad firms, I
+                possess a deep understanding of my clients' needs, enabling me to design tailored plans that bring
+                their visions to life. My mission is to not only plan trips but to create transformative experiences
+                that leave a lasting impact, infusing each adventure with a sense of wonder and excitement that
+                resonates long after the journey ends</p>
+            </div>
+          </div>
+        </article>
       </div>
 
-      <div class="screen-04__figures" aria-hidden="true">
-        <div class="screen-04__fig-wrap screen-04__fig-wrap--right" data-parallax="figure">
-          <img src="/assets/3.webp" alt="" />
-        </div>
-        <div class="screen-04__fig-wrap screen-04__fig-wrap--left" data-parallax="figure">
-          <img src="/assets/4.webp" alt="" />
-        </div>
+      <div class="screen-04__summary" data-layer="text">
+        <p class="screen-04__summary-text">We are a family-founded company built by two people with deep roots in the
+          corporate world. That background gave us discipline, attention to detail, and a respect for our clients’ time.
+          What guides us today is a desire for travel that feels open, intentional, and personal. We create journeys
+          with the same care we would expect ourselves — calm in rhythm, precise in execution, and free of unnecessary
+          noise. Many of our clients come from similar paths and recognize the value of experiences that are thoughtful
+          rather than performative.</p>
       </div>
     </div>
   </section>
 
-  <!-- Screen 05: About / Approach -->
+  <!-- Screen 05: About -->
   <section class="screen screen-05" id="screen-05" data-screen>
     <div class="screen-05__env" data-layer="env" aria-hidden="true">
       <div class="screen-05__grid"></div>
@@ -380,148 +438,211 @@
     </div>
 
     <div class="wrap screen-05__inner">
+      <p class="screen-02__eyebrow" data-layer="text">About</p>
 
-      <div class="screen-05__type" data-layer="type" aria-hidden="true">
-        <div class="screen-05__ghost">BOUTIQUE</div>
-        <div class="screen-05__ghost">JOURNEYS</div>
-      </div>
-
-      <div class="screen-05__text" data-layer="text">
-        <h2 class="screen-05__headline">LANTRN’s approach</h2>
-        <p class="screen-05__lead">Boutique travel design with a concierge mindset — thoughtful planning, relaxed
-          pacing, and private transportation you can trust.</p>
-
-        <div class="screen-05__body">
-          <p>Founders Alex and Jennifer design each itinerary with care, blending iconic destinations with local insight
-            and space to slow down.</p>
-          <p>Whether you’re exploring Los Angeles, heading to wine country, or planning a Western States road trip, we
-            focus on comfort, clarity, and a sense of discovery.</p>
-          <p>Guiding can include history and archaeology context when requested, keeping the experience personal and
-            engaging.</p>
+      <div class="screen-05__top" data-layer="text">
+        <div class="screen-05__map" aria-label="Lantrn Tours location">
+          <iframe title="Lantrn Tours location map"
+            src="https://www.google.com/maps?q=400%20S%20Hope%20St%2C%20Los%20Angeles%2C%20CA%2090071&output=embed"
+            loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
 
-        <div class="screen-05__quote" aria-label="Method principle">
-          <span class="q">“Travel well, return inspired.”</span>
-          <span class="a">— LANTRN Tours</span>
-        </div>
-
-        <div class="screen-05__facts" aria-label="Approach summary">
-          <div class="fact"><span class="fact__k">Tailored experiences</span><span class="fact__v">Custom routes, not
-              templates.</span></div>
-          <div class="fact"><span class="fact__k">Concierge guiding</span><span class="fact__v">Local context on your
-              terms.</span></div>
-          <div class="fact"><span class="fact__k">Western reach</span><span class="fact__v">California to the
-              desert parks.</span></div>
-        </div>
-
-        <a class="screen-05__softcta" href="#screen-01">Start planning your tour <span aria-hidden="true">→</span></a>
-      </div>
-
-      <div class="screen-05__figure" aria-hidden="true">
-        <img src="/assets/5.webp" alt="" />
-      </div>
-
-    </div>
-  </section>
-
-  <section class="screen screen-06 contact-screen" id="screen-06" data-screen>
-    <div class="contact-screen__env" data-layer="env" aria-hidden="true">
-      <div class="contact-screen__noise"></div>
-      <div class="contact-screen__diag"></div>
-    </div>
-    <div class="contact-screen__inner wrap">
-      <div class="contact-screen__header" data-layer="text">
-        <p class="contact-screen__eyebrow">Contact</p>
-        <h2 class="contact-screen__headline">Schedule a private tour, request a transfer, or ask a question.</h2>
-        <p class="contact-screen__subhead">We respond within one business day. Serving Los Angeles and beyond.</p>
-      </div>
-
-      <footer class="site-footer contact-screen__footer" id="footer" data-layer="figure">
-        <div class="footer__inner">
-          <div class="footer__main">
-            <!-- Brand & Social -->
-            <div class="footer__brand">
-              <div class="footer__logo">LANTRN Tours</div>
-              <p class="footer__tagline">
-                Boutique private tours and transportation across Los Angeles, California, and the Western States.
-              </p>
-              <div class="footer__social">
-                <a href="#" class="footer__social-link" aria-label="Instagram">
-                  <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
-                    <path
-                      d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-                  </svg>
-                </a>
-                <a href="#" class="footer__social-link" aria-label="Facebook">
-                  <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
-                    <path
-                      d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-                  </svg>
-                </a>
-                <a href="#" class="footer__social-link" aria-label="YouTube">
-                  <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
-                    <path
-                      d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
-                  </svg>
-                </a>
-              </div>
+        <div class="screen-05__contact">
+          <p class="screen-05__lead">Lantrn Tours LLC</p>
+          <div class="screen-05__contact-list">
+            <div class="screen-05__contact-item">
+              <span class="screen-05__contact-label">Phone</span>
+              <a class="screen-05__contact-value" href="tel:+17472959919">747-295-9919</a>
             </div>
+            <div class="screen-05__contact-item">
+              <span class="screen-05__contact-label">Email</span>
+              <a class="screen-05__contact-value" href="mailto:info@lantrn.tours">info@lantrn.tours</a>
+            </div>
+            <div class="screen-05__contact-item">
+              <span class="screen-05__contact-label">Address</span>
+              <span class="screen-05__contact-value">400 S Hope St, Los Angeles, CA 90071</span>
+            </div>
+          </div>
+        </div>
+      </div>
 
-            <!-- Programs -->
-            <nav class="footer__nav">
-              <h3 class="footer__nav-title">Services</h3>
-              <ul class="footer__nav-links">
-                <li><a href="#screen-04" class="footer__nav-link">Private LA Tours</a></li>
-                <li><a href="#screen-04" class="footer__nav-link">Transportation</a></li>
-                <li><a href="#screen-04" class="footer__nav-link">Multi-day Tours</a></li>
-                <li><a href="#screen-04" class="footer__nav-link">Pricing</a></li>
-              </ul>
-            </nav>
-
-            <!-- About -->
-            <nav class="footer__nav">
-              <h3 class="footer__nav-title">About</h3>
-              <ul class="footer__nav-links">
-                <li><a href="#screen-05" class="footer__nav-link">Our Approach</a></li>
-                <li><a href="#screen-05" class="footer__nav-link">Team</a></li>
-                <li><a href="#screen-03" class="footer__nav-link">Process</a></li>
-                <li><a href="#screen-02" class="footer__nav-link">Services</a></li>
-              </ul>
-            </nav>
-
-            <!-- Contact -->
-            <div class="footer__nav">
-              <h3 class="footer__nav-title">Contact</h3>
-              <div class="footer__contact">
-                <a href="tel:+17472959919" class="footer__contact-item">
-                  <span class="footer__contact-label">Phone</span>
-                  +1 (747) 295-9919
-                </a>
-                <a href="mailto:info@lantrn.tours" class="footer__contact-item">
-                  <span class="footer__contact-label">Email</span>
-                  info@lantrn.tours
-                </a>
-                <div class="footer__contact-item">
-                  <span class="footer__contact-label">Location</span>
-                  Los Angeles, CA · California & Western States
+      <div class="screen-05__footer-card" data-layer="text">
+        <footer class="site-footer site-footer--card" id="footer">
+          <div class="footer__inner">
+            <div class="footer__top">
+              <!-- Col 1: Brand -->
+              <div class="footer__col footer__col--brand">
+                <div class="footer__logo">
+                  <img src="/assets/logo.png" alt="Lantrn Tours logo" />
                 </div>
-              </div>
-            </div>
-          </div>
+                <p class="footer__desc">
+                  Private travel across California and the Western States, designed to feel personal, calm, and precisely planned.
+                </p>
 
-          <!-- Bottom Bar -->
-          <div class="footer__bottom">
-            <p class="footer__copyright">© 2024 LANTRN Tours. All rights reserved.</p>
-            <ul class="footer__legal">
-              <li><a href="#" class="footer__legal-link">Privacy Policy</a></li>
-              <li><a href="#" class="footer__legal-link">Terms of Service</a></li>
-              <li><a href="#" class="footer__legal-link">Cookie Policy</a></li>
-            </ul>
+                <div class="footer__socials">
+                  <a href="#" aria-label="X (Twitter)">
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                      <path
+                        d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                    </svg>
+                  </a>
+                  <a href="#" aria-label="LinkedIn">
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                      <path
+                        d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                    </svg>
+                  </a>
+                  <a href="#" aria-label="Instagram">
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                      <path
+                        d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                    </svg>
+                  </a>
+                  <a href="#" aria-label="Facebook">
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                      <path
+                        d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                    </svg>
+                  </a>
+                </div>
+
+              </div>
+
+              <!-- Col 2: Site Map -->
+              <div class="footer__col">
+                <h3 class="footer__heading">Site Map</h3>
+                <ul class="footer__links">
+                  <li><a href="#screen-01">Homepage</a></li>
+                  <li><a href="#screen-02">Our Services</a></li>
+                  <li><a href="#screen-03">Process</a></li>
+                  <li><a href="#screen-04">Team</a></li>
+                  <li><a href="#screen-05">About</a></li>
+                  <li><a href="#screen-05">Contact</a></li>
+                </ul>
+              </div>
+
+              <!-- Col 3: Legal -->
+              <div class="footer__col">
+                <h3 class="footer__heading">Legal</h3>
+                <ul class="footer__links">
+                  <li><a href="/privacy.html">Privacy Policy</a></li>
+                  <li><a href="/terms.html">Terms of Services</a></li>
+                  <li><a href="/cookies.html">Cookie Policy</a></li>
+                </ul>
+              </div>
+
+              <!-- Col 4: Newsletter -->
+              <div class="footer__col footer__col--newsletter">
+                <h3 class="footer__heading">Newsletter</h3>
+                <p class="footer__note">Monthly inspiration. No spam.</p>
+                <form class="footer__newsletter">
+                  <input type="email" placeholder="Your email" aria-label="Email address" />
+                  <button type="submit">→</button>
+                </form>
+              </div>
+
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="footer__bottom-bar">
+              <div class="footer__copyright">© 2026 All Rights Reserved</div>
+            </div>
+
           </div>
-        </div>
-      </footer>
+        </footer>
+      </div>
+
     </div>
   </section>
+  <div class="modal" id="plan-trip-modal" aria-hidden="true">
+    <div class="modal__backdrop" data-modal-close></div>
+    <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="plan-trip-title">
+      <button class="modal__close" type="button" data-modal-close aria-label="Close">×</button>
+      <div class="modal__header">
+        <h2 id="plan-trip-title" class="modal__title">Plan a trip</h2>
+        <p class="modal__subtitle">Tell us what you are looking for. We will respond within 30 minutes.</p>
+      </div>
+
+      <form class="modal__form">
+        <div class="modal__grid">
+          <label class="modal__field">
+            <span>Name</span>
+            <input type="text" name="name" placeholder="Your name" required />
+          </label>
+          <label class="modal__field">
+            <span>Email</span>
+            <input type="email" name="email" placeholder="you@email.com" required />
+          </label>
+          <label class="modal__field">
+            <span>Phone</span>
+            <input type="tel" name="phone" placeholder="+1 (555) 000-0000" />
+          </label>
+          <label class="modal__field">
+            <span>Expected date</span>
+            <input type="text" name="date" placeholder="YYYY-MM-DD" data-date-picker readonly />
+          </label>
+        </div>
+
+        <div class="modal__calendar" aria-hidden="true"></div>
+
+        <label class="modal__field modal__field--full">
+          <span>Comment</span>
+          <textarea name="comment" rows="4" placeholder="Tell us about your trip, preferences, and timing."></textarea>
+        </label>
+
+        <div class="modal__services" role="group" aria-label="Services">
+          <label class="modal__service">
+            <input type="checkbox" name="services[]" value="Private LA Tour" />
+            <span>Private LA Tour</span>
+          </label>
+          <label class="modal__service">
+            <input type="checkbox" name="services[]" value="Private Transportation" />
+            <span>Private Transportation</span>
+          </label>
+          <label class="modal__service">
+            <input type="checkbox" name="services[]" value="Multi-day Custom Tour" />
+            <span>Multi-day Custom Tour</span>
+          </label>
+          <label class="modal__service">
+            <input type="checkbox" name="services[]" value="Special-Interest Tours" />
+            <span>Special-Interest Tours</span>
+          </label>
+          <label class="modal__service">
+            <input type="checkbox" name="services[]" value="Western States Loop" />
+            <span>Western States Loop</span>
+          </label>
+        </div>
+
+        <div class="modal__actions">
+          <button class="modal__submit" type="submit">Send request</button>
+          <button class="modal__ghost" type="button" data-modal-close>Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal" id="call-me-back-modal" aria-hidden="true">
+    <div class="modal__backdrop" data-modal-close></div>
+    <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="call-me-back-title">
+      <button class="modal__close" type="button" data-modal-close aria-label="Close">×</button>
+      <div class="modal__header">
+        <h2 id="call-me-back-title" class="modal__title">Call me back</h2>
+        <p class="modal__subtitle">Leave your number and we will call you shortly.</p>
+      </div>
+
+      <form class="modal__form">
+        <label class="modal__field modal__field--phone">
+          <span>Phone</span>
+          <input type="tel" name="phone" placeholder="+1 (555) 000-0000" required />
+        </label>
+
+        <div class="modal__actions">
+          <button class="modal__submit" type="submit">Request a call</button>
+          <button class="modal__ghost" type="button" data-modal-close>Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
 
   <script type="module" src="/src/motion.js"></script>
 </body>

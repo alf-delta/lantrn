@@ -1,316 +1,193 @@
 /* screen-03.css */
 
-/* 1. Environment & Base */
-.screen-03 {
-    position: relative;
-    width: 100%;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    overflow: hidden;
-    padding: 0;
-    /* Reset padding, handled by inner */
+.screen-03 .screen-02__eyebrow {
+  left: 50vw;
+  transform: translateX(-50%);
+  text-align: center;
+  width: max-content;
 }
 
-.screen-03__env {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-}
-
-.screen-03__noise {
-    position: absolute;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
-    opacity: 0.05;
-    mix-blend-mode: overlay;
-}
-
-/* Subtle diagonal anchor similar to Concept 2 */
-.screen-03__diag {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 60%;
-    height: 100%;
-    background: linear-gradient(210deg,
-            rgba(255, 255, 255, 0.4) 0%,
-            rgba(255, 255, 255, 0) 60%);
-    opacity: 0.6;
-}
-
-/* 2. Layout Structure (Matching Screen 2) */
 .screen-03__inner {
-    position: relative;
-    z-index: 2;
-    width: 100%;
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 40px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    /* 50/50 split */
-    align-items: center;
-    gap: 80px;
-    /* Generous gap like Screen 2 */
+  align-items: flex-start;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  padding-top: 120px;
+  padding-bottom: 80px;
+  position: relative;
+  --screen-03-top: 120px;
+  --screen-03-bottom: 80px;
 }
 
-
-
-/* 4. Left Column: Content */
-.screen-03__content {
-    display: flex;
-    flex-direction: column;
-    gap: 48px;
-    /* Consistent vertical rhythm */
-    max-width: 600px;
+.screen-03__inner::before {
+  content: '';
+  position: absolute;
+  top: var(--screen-03-top);
+  bottom: var(--screen-03-bottom);
+  left: 50%;
+  width: 1px;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.12);
 }
 
-.screen-03__headline {
-    margin: 0;
-    font-family: 'Inter', sans-serif;
-    font-weight: 900;
-    letter-spacing: -1.2px;
-    line-height: 1.1;
-    font-size: clamp(32px, 3.2vw, 56px);
-    /* Matching Screen 2 headline scale */
-    color: rgba(40, 54, 24, .95);
+.screen-03__left {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  justify-self: end;
+  padding-right: 40px;
+  width: min(100%, 560px);
+  align-self: center;
 }
 
-.screen-03__intro {
-    font-family: 'Inter', sans-serif;
-    font-size: clamp(16px, 1.1vw, 20px);
-    line-height: 1.6;
-    color: rgba(40, 54, 24, 0.8);
-    font-weight: 500;
-    margin: 0;
-    max-width: 520px;
+.screen-03__photo-card {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 18px 32px 70px rgba(6, 10, 14, 0.55);
+  background: rgba(10, 16, 20, 0.65);
 }
 
-/* 5. Process Blocks (Glassmorphism 1:1 with Screen 2 Facts) */
-.screen-03__process {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+.screen-03__photo-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
-.process-block {
-    display: flex;
-    gap: 24px;
-    align-items: flex-start;
-    padding: 24px 32px;
-    /* Matching Screen 2 padding */
-    border-radius: 24px;
-    /* Soft premium corners */
-    background: rgba(254, 250, 224, 0.5);
-    /* Matching Screen 2 base */
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(40, 54, 24, 0.08);
-    /* Subtle border */
-    box-shadow: 0 4px 20px rgba(40, 54, 24, 0.02);
-    /* Very subtle lift */
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+.screen-03__desc-item {
+  padding: 16px 18px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(9, 14, 18, 0.55);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
-.process-block:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(40, 54, 24, 0.06);
-    background: rgba(255, 255, 255, 0.7);
+.screen-03__desc-title {
+  margin: 0 0 8px;
+  font-size: 16px;
+  font-weight: 800;
+  color: #fff;
 }
 
-.process-block__number {
-    font-family: 'Inter', sans-serif;
-    font-size: 14px;
-    font-weight: 700;
-    color: rgba(40, 54, 24, 0.4);
-    margin-top: 4px;
-    min-width: 24px;
+.screen-03__desc-body {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.78);
 }
 
-.process-block__content {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
+.screen-03__right {
+  display: flex;
+  justify-content: flex-start;
+  justify-self: start;
+  padding-left: 40px;
+  width: min(100%, 560px);
+  align-self: center;
 }
 
-.process-block__title {
-    margin: 0;
-    font-family: 'Inter', sans-serif;
-    font-size: 18px;
-    font-weight: 700;
-    color: rgba(40, 54, 24, 0.95);
+.screen-03__steps {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: 100%;
 }
 
-.process-block__body {
-    margin: 0;
-    font-family: 'Inter', sans-serif;
-    font-size: 15px;
-    line-height: 1.5;
-    color: rgba(40, 54, 24, 0.75);
+.screen-03__step {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 14px;
+  align-items: start;
+  padding: 14px 16px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(9, 14, 18, 0.45);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
 }
 
-.screen-03__footer-note {
-    font-family: 'Inter', sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: rgba(40, 54, 24, 0.5);
-    padding-top: 12px;
-    border-top: 1px solid rgba(40, 54, 24, 0.1);
-    display: inline-block;
+.screen-03__step:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.22);
 }
 
-/* 6. Right Column: Vertical Figure (Arch) */
-.screen-03__figure-wrapper {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    position: relative;
-    /* Allow breaking out if needed */
+.screen-03__step.is-active {
+  border-color: #e76f51;
+  border-width: 2px;
+  background: rgba(15, 22, 28, 0.72);
 }
 
-.screen-03__figure {
-    position: relative;
-    width: 100%;
-    max-width: 560px;
-    /* Increased width per user request */
-    aspect-ratio: 4/5;
-    /* Wider portrait ratio */
-    border-radius: 280px 280px 24px 24px;
-    /* Adjusted Arch radius */
-    overflow: hidden;
-    box-shadow: 20px 40px 80px rgba(40, 54, 24, 0.15);
-    /* Deep premium shadow */
-    transform: rotate(2deg);
-    /* Slight dynamic tilt */
-    margin-right: -20px;
-    /* Less pull to fit wider image */
+.screen-03__step-badge {
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  font-size: 14px;
+  font-weight: 800;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 18px rgba(8, 12, 16, 0.4);
 }
 
-.screen-03__figure img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
+.screen-03__step.is-active .screen-03__step-badge {
+  background: rgba(255, 255, 255, 0.16);
+  box-shadow: 0 10px 24px rgba(8, 12, 16, 0.55);
 }
 
-/* Overlay gradient on image for depth */
-.screen-03__figure::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to bottom,
-            rgba(40, 54, 24, 0) 60%,
-            rgba(40, 54, 24, 0.1) 100%);
-    pointer-events: none;
+.screen-03__step-title {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 800;
+  color: #e76f51;
 }
 
-
-/* 7. Responsive Adjustments - Matching Screen 2 */
-@media (max-width: 920px) {
-    .screen-03__type {
-        inset: 100px 20px auto 20px;
-        z-index: 0;
-    }
-
-    .screen-03__ghost {
-        font-size: clamp(40px, 10vw, 96px);
-    }
+.screen-03__step-sub {
+  margin: 6px 0 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.72);
 }
 
-@media (max-width: 480px) {
-    .screen-03__type {
-        inset: 80px 16px auto 16px;
-    }
-
-    .screen-03__ghost {
-        font-size: clamp(32px, 12vw, 64px);
-    }
-}
-
-@media (max-width: 360px) {
-    .screen-03__type {
-        inset: 72px 12px auto 12px;
-    }
-
-    .screen-03__ghost {
-        font-size: clamp(28px, 14vw, 48px);
-    }
-}
-
-/* Additional responsive adjustments */
 @media (max-width: 1024px) {
-    .screen-03__inner {
-        grid-template-columns: 1fr;
-        gap: 60px;
-        padding-top: 80px;
-        padding-bottom: 80px;
-    }
+  .screen-03__inner {
+    grid-template-columns: 1fr;
+    gap: 36px;
+    padding-top: 120px;
+  }
 
-    .screen-03__content {
-        max-width: 100%;
-        align-items: center;
-        text-align: center;
-    }
+  .screen-03__inner::before {
+    display: none;
+  }
 
-    .screen-03__intro {
-        text-align: center;
-        margin: 0 auto;
-    }
+  .screen-03__right {
+    justify-content: flex-start;
+    padding-left: 0;
+  }
 
-    .screen-03__process {
-        width: 100%;
-        max-width: 600px;
-        margin: 0 auto;
-    }
-
-    .process-block {
-        text-align: left;
-    }
-
-    .screen-03__figure-wrapper {
-        justify-content: center;
-        height: auto;
-    }
-
-    .screen-03__figure {
-        max-width: 420px;
-        margin-right: 0;
-        transform: rotate(0deg);
-    }
+  .screen-03__left {
+    justify-self: start;
+    padding-right: 0;
+  }
 }
 
 @media (max-width: 768px) {
-    .screen-03__inner {
-        padding-top: 96px;
-        padding-bottom: 32px;
-        gap: 32px;
-    }
+  .screen-03__inner {
+    padding-top: 100px;
+    padding-bottom: 56px;
+  }
 
-    .screen-03__content {
-        align-items: flex-start;
-        text-align: left;
-    }
+  .screen-03__photo-card {
+    max-width: 100%;
+  }
 
-    .screen-03__intro {
-        text-align: left;
-    }
-
-    .screen-03__process {
-        max-width: 100%;
-    }
-
-    .screen-03__headline {
-        font-size: 36px;
-    }
-
-    .process-block {
-        padding: 20px;
-    }
+  .screen-03__descriptions,
+  .screen-03__steps {
+    max-width: 100%;
+  }
 }

@@ -261,6 +261,7 @@ if (enableGsapAnimations) {
         case 'screen-02':
           add(q('.screen-02__env'), { y: 0 }, { duration: 0.5 });
           addText(q('.screen-02__ghost'), { y: 8, x: 8 }, { duration: 0.42, stagger: 0.08 }, '-=0.3');
+          addText(q('.screen-02__eyebrow'), { y: 10, autoAlpha: 0 }, { duration: 0.35 }, '-=0.3');
           addText(q('.screen-02__headline'), { y: 14, autoAlpha: 0 }, { duration: 0.4 }, '-=0.35');
           addText(q('.screen-02__body p'), { y: 14, autoAlpha: 0 }, { duration: 0.38, stagger: 0.08 }, '-=0.3');
           addText(q('.screen-02__facts .fact'), { y: 16, x: -6 }, { duration: 0.4, stagger: 0.08 }, '-=0.25');
@@ -438,20 +439,21 @@ if (enableGsapAnimations) {
 
 // 4) Hero services carousel
 (function initHeroServicesCarousel() {
-  const track = document.querySelector('.hero-services__track');
+  const heroScreen = document.querySelector('#screen-02');
+  if (!heroScreen) return;
+  const track = heroScreen.querySelector('.hero-services__track');
   if (!track) return;
-  const shape = document.querySelector('.hero-services__shape-path');
-  const shapeImages = Array.from(document.querySelectorAll('.hero-services__shape-image'));
-  const serviceTitle = document.querySelector('.screen-02__service-title');
-  const serviceDesc = document.querySelector('.screen-02__service-desc');
-  const screenHeadline = document.querySelector('.screen-02__headline');
-  const screenSubs = Array.from(document.querySelectorAll('.screen-02__sub'));
+  const shape = heroScreen.querySelector('.hero-services__shape-path');
+  const shapeImages = Array.from(heroScreen.querySelectorAll('.hero-services__shape-image'));
+  const serviceTitle = heroScreen.querySelector('.screen-02__service-title');
+  const serviceDesc = heroScreen.querySelector('.screen-02__service-desc');
+  const screenHeadline = heroScreen.querySelector('.screen-02__headline');
+  const screenSubs = Array.from(heroScreen.querySelectorAll('.screen-02__sub'));
   const defaultHeadline = screenHeadline ? screenHeadline.innerHTML : '';
   const defaultSubs = screenSubs.map((el) => el.textContent || '');
-  const prevBtn = document.querySelector('.hero-services__btn[data-dir="prev"]');
-  const nextBtn = document.querySelector('.hero-services__btn[data-dir="next"]');
+  const prevBtn = heroScreen.querySelector('.hero-services__btn[data-dir="prev"]');
+  const nextBtn = heroScreen.querySelector('.hero-services__btn[data-dir="next"]');
   const cards = () => Array.from(track.children);
-  const heroScreen = document.querySelector('#screen-02');
 
   let isAnimating = false;
   let shapeIndex = 0;
@@ -577,7 +579,7 @@ if (enableGsapAnimations) {
         const parts = item.split(':');
         return { k: parts[0] || '', v: parts.slice(1).join(':') || '' };
       });
-      const factEls = document.querySelectorAll('.screen-02__facts .fact');
+      const factEls = heroScreen.querySelectorAll('.screen-02__facts .fact');
       factEls.forEach((el, idx) => {
         const data = factItems[idx];
         if (!data) return;
@@ -592,11 +594,36 @@ if (enableGsapAnimations) {
   setShapeImage(track.children[0]);
   setServiceCopy(track.children[0]);
 
+  const dotsContainer = heroScreen.querySelector('.hero-services__dots');
+
+  // Create dots based on initial card count
+  if (dotsContainer) {
+    const cardCount = track.children.length;
+    dotsContainer.innerHTML = '';
+    for (let i = 0; i < cardCount; i++) {
+      const dot = document.createElement('div');
+      dot.className = 'hero-services__dot' + (i === 0 ? ' is-active' : '');
+      dotsContainer.appendChild(dot);
+    }
+  }
+
+  const updateDots = (index) => {
+    if (!dotsContainer) return;
+    const dots = Array.from(dotsContainer.children);
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('is-active', i === index);
+    });
+  };
+
   const morphShape = (dir) => {
     if (!shape || !morphData) return;
     const { pointsToPath, shapesPoints } = morphData;
     const from = shapesPoints[shapeIndex];
     shapeIndex = (shapeIndex + (dir === 'next' ? 1 : -1) + shapesPoints.length) % shapesPoints.length;
+
+    // Update dots with new shapeIndex
+    updateDots(shapeIndex);
+
     let to = shapesPoints[shapeIndex];
     if (!from || !to) return;
 
@@ -728,4 +755,247 @@ if (enableGsapAnimations) {
   };
 
   window.addEventListener('keydown', onKeyDown);
+})();
+
+// 5) Screen 03/04: Steps -> image + description swap
+(function initScreen03Steps() {
+  const screens = Array.from(document.querySelectorAll('.screen-03'));
+  if (!screens.length) return;
+
+  screens.forEach((screen) => {
+    const steps = Array.from(screen.querySelectorAll('.screen-03__step'));
+    const photo = screen.querySelector('.screen-03__photo');
+    const descTitle = screen.querySelector('.screen-03__desc-title');
+    const descBody = screen.querySelector('.screen-03__desc-body');
+
+    if (!steps.length || !photo || !descTitle || !descBody) return;
+
+    const setActive = (step) => {
+      if (!step) return;
+      steps.forEach((el) => el.classList.toggle('is-active', el === step));
+      descTitle.textContent = step.dataset.title || '';
+      descBody.textContent = step.dataset.desc || '';
+      const img = step.dataset.image;
+      if (img) photo.setAttribute('src', img);
+      const alt = step.dataset.alt;
+      if (alt) photo.setAttribute('alt', alt);
+    };
+
+    steps.forEach((step) => {
+      step.addEventListener('click', () => setActive(step));
+      step.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          setActive(step);
+        }
+      });
+    });
+
+    const initial = steps.find((el) => el.classList.contains('is-active')) || steps[0];
+    setActive(initial);
+  });
+})();
+
+// 6) Modal system (Plan a trip + Call me back)
+(function initModals() {
+  const triggers = Array.from(document.querySelectorAll('[data-modal-open]'));
+  if (!triggers.length) return;
+
+  const openModal = (modal) => {
+    if (!modal) return;
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('modal-open');
+    const firstInput = modal.querySelector('input, textarea, button');
+    if (firstInput) firstInput.focus();
+  };
+
+  const closeModal = (modal) => {
+    if (!modal) return;
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden', 'true');
+    if (!document.querySelector('.modal.is-open')) {
+      document.body.classList.remove('modal-open');
+    }
+  };
+
+  triggers.forEach((btn) => {
+    const target = btn.getAttribute('data-modal-open');
+    if (!target) return;
+    const modal = document.querySelector(`#${target}-modal`);
+    if (!modal) return;
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      openModal(modal);
+    });
+  });
+
+  document.addEventListener('click', (e) => {
+    const target = e.target;
+    if (!(target instanceof HTMLElement)) return;
+    if (target.matches('[data-modal-close]')) {
+      const modal = target.closest('.modal');
+      closeModal(modal);
+    }
+  });
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    const openModalEl = document.querySelector('.modal.is-open');
+    if (openModalEl) closeModal(openModalEl);
+  });
+})();
+
+// 7) Styled calendar for Plan a trip date input
+(function initPlanTripCalendar() {
+  const modal = document.querySelector('#plan-trip-modal');
+  if (!modal) return;
+
+  const input = modal.querySelector('[data-date-picker]');
+  const calendar = modal.querySelector('.modal__calendar');
+  if (!input || !calendar) return;
+
+  const monthNames = [
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'
+  ];
+  const weekDays = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
+
+  let current = new Date();
+  let selected = null;
+  let isOpen = false;
+
+  const formatDate = (date) => {
+    const y = date.getFullYear();
+    const m = String(date.getMonth() + 1).padStart(2, '0');
+    const d = String(date.getDate()).padStart(2, '0');
+    return `${y}-${m}-${d}`;
+  };
+
+  const parseInput = () => {
+    if (!input.value) return null;
+    const [y, m, d] = input.value.split('-').map((v) => parseInt(v, 10));
+    if (!y || !m || !d) return null;
+    return new Date(y, m - 1, d);
+  };
+
+  const render = () => {
+    const year = current.getFullYear();
+    const month = current.getMonth();
+    const first = new Date(year, month, 1);
+    const startDay = first.getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+    const selectedValue = selected ? formatDate(selected) : '';
+
+    const header = `
+      <div class="modal__calendar-header">
+        <button class="modal__calendar-btn" type="button" data-cal="prev">‹</button>
+        <div>${monthNames[month]} ${year}</div>
+        <button class="modal__calendar-btn" type="button" data-cal="next">›</button>
+      </div>
+    `;
+
+    let grid = '<div class="modal__calendar-grid">';
+    weekDays.forEach((day) => {
+      grid += `<div class="modal__calendar-weekday">${day}</div>`;
+    });
+
+    for (let i = 0; i < startDay; i++) {
+      grid += '<div class="modal__calendar-day is-empty"></div>';
+    }
+
+    for (let day = 1; day <= daysInMonth; day++) {
+      const date = new Date(year, month, day);
+      const value = formatDate(date);
+      const selectedClass = value === selectedValue ? ' is-selected' : '';
+      grid += `<button class="modal__calendar-day${selectedClass}" type="button" data-date="${value}">${day}</button>`;
+    }
+
+    grid += '</div>';
+    calendar.innerHTML = header + grid;
+  };
+
+  const open = () => {
+    if (isOpen) return;
+    isOpen = true;
+    calendar.classList.add('is-open');
+    calendar.setAttribute('aria-hidden', 'false');
+    const parsed = parseInput();
+    if (parsed) {
+      selected = parsed;
+      current = new Date(parsed.getFullYear(), parsed.getMonth(), 1);
+    }
+    render();
+  };
+
+  const close = () => {
+    if (!isOpen) return;
+    isOpen = false;
+    calendar.classList.remove('is-open');
+    calendar.setAttribute('aria-hidden', 'true');
+  };
+
+  input.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (isOpen) {
+      close();
+    } else {
+      open();
+    }
+  });
+  input.addEventListener('focus', open);
+
+  calendar.addEventListener('click', (e) => {
+    const target = e.target;
+    if (!(target instanceof HTMLElement)) return;
+    e.preventDefault();
+    e.stopPropagation();
+    const control = target.getAttribute('data-cal');
+    if (control === 'prev') {
+      current = new Date(current.getFullYear(), current.getMonth() - 1, 1);
+      render();
+      return;
+    }
+    if (control === 'next') {
+      current = new Date(current.getFullYear(), current.getMonth() + 1, 1);
+      render();
+      return;
+    }
+    const dateValue = target.getAttribute('data-date');
+    if (dateValue) {
+      input.value = dateValue;
+      selected = parseInput();
+      close();
+    }
+  });
+
+  document.addEventListener('pointerdown', (e) => {
+    const target = e.target;
+    if (!(target instanceof HTMLElement)) return;
+    if (target === input || calendar.contains(target)) return;
+    close();
+  }, true);
+})();
+
+// 8) Team cards flip (screen-04)
+(function initTeamCardFlip() {
+  const cards = Array.from(document.querySelectorAll('[data-team-card]'));
+  if (!cards.length) return;
+
+  const toggleCard = (card) => {
+    const isFlipped = card.classList.toggle('is-flipped');
+    card.setAttribute('aria-pressed', isFlipped ? 'true' : 'false');
+  };
+
+  cards.forEach((card) => {
+    card.addEventListener('click', () => toggleCard(card));
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggleCard(card);
+      }
+    });
+  });
 })();
